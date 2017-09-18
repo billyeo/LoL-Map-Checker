@@ -2,3 +2,4 @@
 Members:
 Ramin Ikhiilov
 Billy Lin
+Simon Yip
