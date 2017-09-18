@@ -3,3 +3,4 @@ Members:
 Ramin Ikhiilov
 Billy Lin
 Simon Yip
+Dean Garofalo
