@@ -1,4 +1,6 @@
+console.log('this works on load');
 function summonerLookUp() {
+    console.log('this works');
     var SUMMONER_NAME = "";
     SUMMONER_NAME = $("#userName").val();
 
@@ -15,20 +17,21 @@ function summonerLookUp() {
 
             },
             success: function (json) {
-                var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
+                console.log(json);
+                // var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
 
-                SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
+                // SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
-                summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
-                summonerID = json[SUMMONER_NAME_NOSPACES].id;
-                accountID = json[SUMMONER_NAME_NOSPACES].accountId;
-                profileICON = json[SUMMONER_NAME_NOSPACES].profileIconId;
+                // summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
+                // summonerID = json[SUMMONER_NAME_NOSPACES].id;
+                // accountID = json[SUMMONER_NAME_NOSPACES].accountId;
+                // profileICON = json[SUMMONER_NAME_NOSPACES].profileIconId;
               
 
-                document.getElementById("sLevel").innerHTML = summonerLevel;
-                document.getElementById("sID").innerHTML = summonerID;
-                document.getElementById("sAccID").innerHTML = accountID;
-                document.getElementById("proIcon").innerHTML = profileICON;
+                // document.getElementById("sLevel").innerHTML = summonerLevel;
+                // document.getElementById("sID").innerHTML = summonerID;
+                // document.getElementById("sAccID").innerHTML = accountID;
+                // document.getElementById("proIcon").innerHTML = profileICON;
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
