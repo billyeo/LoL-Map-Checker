@@ -28,7 +28,7 @@ function summonerLookUp() {
                 // profileICON = json[SUMMONER_NAME_NOSPACES].profileIconId;
               
 
-                // document.getElementById("sLevel").innerHTML = summonerLevel;
+                document.getElementById("sLevel").innerHTML = summonerLevel;
                 // document.getElementById("sID").innerHTML = summonerID;
                 // document.getElementById("sAccID").innerHTML = accountID;
                 // document.getElementById("proIcon").innerHTML = profileICON;
