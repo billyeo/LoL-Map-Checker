@@ -10,7 +10,8 @@ function summonerLookUp() {
     if (SUMMONER_NAME !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
+            //url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
+            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + API_KEY,
             type: 'GET',
             dataType: 'json',
             data: {
@@ -22,13 +23,13 @@ function summonerLookUp() {
 
                 SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
-                summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
+                //summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
                 // summonerID = json[SUMMONER_NAME_NOSPACES].id;
                 // accountID = json[SUMMONER_NAME_NOSPACES].accountId;
                 // profileICON = json[SUMMONER_NAME_NOSPACES].profileIconId;
               
 
-                document.getElementById("sLevel").innerHTML = summonerLevel;
+                //document.getElementById("sLevel").innerHTML = summonerLevel;
                 // document.getElementById("sID").innerHTML = summonerID;
                 // document.getElementById("sAccID").innerHTML = accountID;
                 // document.getElementById("proIcon").innerHTML = profileICON;
@@ -41,5 +42,7 @@ function summonerLookUp() {
                 alert("error getting Summoner data!");
             }
         });
+
+
     } else {}
 }
