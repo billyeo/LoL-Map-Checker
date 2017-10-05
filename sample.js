@@ -22,7 +22,7 @@ function summonerLookUp() {
 
                 SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
-                // summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
+                summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
                 // summonerID = json[SUMMONER_NAME_NOSPACES].id;
                 // accountID = json[SUMMONER_NAME_NOSPACES].accountId;
                 // profileICON = json[SUMMONER_NAME_NOSPACES].profileIconId;
