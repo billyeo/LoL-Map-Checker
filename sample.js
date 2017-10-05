@@ -33,6 +33,9 @@ function summonerLookUp() {
                 // document.getElementById("sAccID").innerHTML = accountID;
                 // document.getElementById("proIcon").innerHTML = profileICON;
 
+
+                console.log('api call');
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
