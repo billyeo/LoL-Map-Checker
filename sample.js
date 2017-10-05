@@ -18,9 +18,9 @@ function summonerLookUp() {
             },
             success: function (json) {
                 console.log(json);
-                // var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
+                var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
 
-                // SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
+                SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
                 // summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
                 // summonerID = json[SUMMONER_NAME_NOSPACES].id;
