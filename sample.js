@@ -46,6 +46,7 @@ function summonerLookUp() {
 
                 console.log('api call');
                 console.log(SUMMONER_NAME_NOSPACES);
+                console.log(json.id);
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
