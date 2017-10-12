@@ -1,4 +1,4 @@
-console.log('this works on load');
+console.log('Version -0.0001');
 function summonerLookUp() {
     console.log('this works');
     var SUMMONER_NAME = "";
@@ -39,17 +39,18 @@ function summonerLookUp() {
 
 
                 //var temp = json;
-                //var temp2= JSON.stringify(temp);
+                var temp2= JSON.stringify(json); //worked 
                 //var pleaseWork = JSON.parse(json);
                 //console.log(pleaseWork);
 
 
-                console.log('api call');
+
+            
                 //console.log(SUMMONER_NAME_NOSPACES); works
                 //console.log(json.id); works 
-                console.log(json.type.CHAMPION_KILL);
-
-
+                
+                //console.log(json.type['CHAMPION_KILL']);
+                console.log(json.frames[10].events[0]); // prints a champion kill
 
 
 
