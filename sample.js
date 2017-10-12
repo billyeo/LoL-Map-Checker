@@ -23,6 +23,7 @@ function summonerLookUp() {
 
                 SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
+
                 //summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
                 // summonerID = json[SUMMONER_NAME_NOSPACES].id;
                 // accountID = json[SUMMONER_NAME_NOSPACES].accountId;
@@ -33,6 +34,13 @@ function summonerLookUp() {
                 // document.getElementById("sID").innerHTML = summonerID;
                 // document.getElementById("sAccID").innerHTML = accountID;
                 // document.getElementById("proIcon").innerHTML = profileICON;
+
+
+
+                //var temp = json;
+                //var temp2= JSON.stringify(temp);
+                var pleaseWork = JSON.parse(json);
+                console.log(pleaseWork.frames);
 
 
                 console.log('api call');
