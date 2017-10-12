@@ -11,7 +11,8 @@ function summonerLookUp() {
 
         $.ajax({
             //url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
-            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + API_KEY,
+            //url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + API_KEY,
+            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
             type: 'GET',
             dataType: 'json',
             data: {
@@ -39,11 +40,12 @@ function summonerLookUp() {
 
                 //var temp = json;
                 //var temp2= JSON.stringify(temp);
-                var pleaseWork = JSON.parse(json);
-                console.log(pleaseWork);
+                //var pleaseWork = JSON.parse(json);
+                //console.log(pleaseWork);
 
 
                 console.log('api call');
+                console.log(SUMMONER_NAME_NOSPACES);
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
