@@ -40,7 +40,7 @@ function summonerLookUp() {
                 //var temp = json;
                 //var temp2= JSON.stringify(temp);
                 var pleaseWork = JSON.parse(json);
-                console.log(pleaseWork.frames);
+                console.log(pleaseWork);
 
 
                 console.log('api call');
