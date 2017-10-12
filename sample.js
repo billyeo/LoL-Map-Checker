@@ -47,7 +47,7 @@ function summonerLookUp() {
                 console.log('api call');
                 //console.log(SUMMONER_NAME_NOSPACES); works
                 //console.log(json.id); works 
-                console.log(json.monsterType);
+                console.log(json.type.CHAMPION_KILL);
 
 
 
