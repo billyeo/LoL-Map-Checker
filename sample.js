@@ -12,7 +12,7 @@ function summonerLookUp() {
         $.ajax({
             //url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
             //url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + API_KEY,
-            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
+            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + API_KEY,
             type: 'GET',
             dataType: 'json',
             data: {
@@ -20,9 +20,9 @@ function summonerLookUp() {
             },
             success: function (json) {
                 console.log(json);
-                var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
+                //var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
 
-                SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
+                //SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
 
 
                 //summonerLevel = json[SUMMONER_NAME_NOSPACES].summonerLevel;
@@ -45,8 +45,13 @@ function summonerLookUp() {
 
 
                 console.log('api call');
-                console.log(SUMMONER_NAME_NOSPACES);
-                console.log(json.id);
+                //console.log(SUMMONER_NAME_NOSPACES); works
+                //console.log(json.id); works 
+                console.log(json.monsterType);
+
+
+
+
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
