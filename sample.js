@@ -1,4 +1,4 @@
-console.log('Version -0.0001');
+console.log('Version -0.0002');
 function summonerLookUp() {
     console.log('this works');
     var SUMMONER_NAME = "";
@@ -19,7 +19,7 @@ function summonerLookUp() {
 
             },
             success: function (json) {
-                console.log(json);
+                //console.log(json);
                 //var SUMMONER_NAME_NOSPACES = SUMMONER_NAME.replace(" ", "");
 
                 //SUMMONER_NAME_NOSPACES = SUMMONER_NAME_NOSPACES.toLowerCase().trim();
@@ -39,18 +39,24 @@ function summonerLookUp() {
 
 
                 //var temp = json;
-                var temp2= JSON.stringify(json); //worked 
+                //var temp2= JSON.stringify(json); //worked 
                 //var pleaseWork = JSON.parse(json);
                 //console.log(pleaseWork);
-
-
-
-            
-                //console.log(SUMMONER_NAME_NOSPACES); works
-                //console.log(json.id); works 
                 
-                //console.log(json.type['CHAMPION_KILL']);
-                console.log(json.frames[10].events[0]); // prints a champion kill
+                
+                //Loop to search for a Champion kill, then print its json
+                for (i=0; i<json.frames.length; i++)
+                {
+                	for (j=0; j<json.frames[i].events.length; j++)
+                	{
+                		if (json.frames[i].events[j].type=='CHAMPION_KILL')
+                		{
+                			console.log(json.frames[i].events[j]);
+                		}
+                }
+            }
+
+
 
 
 
