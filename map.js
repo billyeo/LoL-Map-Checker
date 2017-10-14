@@ -67,15 +67,17 @@ function printStuff(){
                 //getting data from json into local variables
                 console.log(json);
                 
+                var matches = json.matches;
 
+                console.log(matches);
                 //writing to website this shit
-                document.getElementById("match1").innerHTML = json.matches[0].gameId;
-                document.getElementById("match2").innerHTML = json.matches[1].gameId;
-                document.getElementById("match3").innerHTML = json.matches[2].gameId;
-                document.getElementById("match4").innerHTML = json.matches[3].gameId;
-                document.getElementById("match5").innerHTML = json.matches[4].gameId;
-
-
+                var list = $('<ul>');
+                $('body').append(list);
+                matches.forEach(function(match, i){
+                    if(i<5){
+                     list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
+                    }
+                })
 
 
 
