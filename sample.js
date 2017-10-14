@@ -1,4 +1,4 @@
-console.log('Version -0.0003');
+console.log('Version -0.0004');
 function testingLookUp() {
     console.log('this works');
     var SUMMONER_NAME = "";
