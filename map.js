@@ -1,4 +1,4 @@
-console.log('Version -0.0002');
+console.log('Version -0.0005');
 
 var GlobalAccountID;
 // bad idea^ 
@@ -46,13 +46,6 @@ function printStuff(){
     console.log("calling summoner lookup");
     summonerLookUp();
 
-
-
-    
-
-    //$.when(summonerLookUp()).done(function(a1){
-        //var accountID = accID
-
     console.log(GlobalAccountID);
     if (GlobalAccountID !== "") {
 
@@ -96,3 +89,75 @@ function printStuff(){
     //});
     
 }
+
+function storeCoordinate(xVal, yVal, array) {
+    array.push({x: xVal, y: yVal});
+}
+
+
+
+
+//var Kill_coords = [];
+
+function matchLookUp() {
+    var SUMMONER_NAME = "";
+    SUMMONER_NAME = $("#userName").val();
+
+    var API_KEY = "";
+    API_KEY = $("#API-Key").val();
+    var Kill_coords = [];
+
+    if (SUMMONER_NAME !== "") {
+
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + 'RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+
+            },
+            success: function (json) {
+                //Loop to search for a Champion kill, then store its coordinate
+                for (i=0; i<json.frames.length; i++)
+                {
+                	for (j=0; j<json.frames[i].events.length; j++)
+                	{
+                		if (json.frames[i].events[j].type=='CHAMPION_KILL')
+                		{
+                			//console.log(json.frames[i].events[j].position.x);
+                			var x = json.frames[i].events[j].position.x;
+                			//console.log(x);
+                			var y = json.frames[i].events[j].position.y;
+                			storeCoordinate(x, y, Kill_coords);
+                			//console.log("in kill coords");
+                			//console.log(Kill_coords[0]);
+                			//storeCoordinate(json.frames[i].events[j].position.x, json.frames[i].events[j].position.y, Kill_coords);
+                		}
+                }
+
+            }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            }
+        });
+        console.log("Finished");
+        
+        for (i = 0; i < Kill_coords.length; i++) {
+        	console.log(Kill_coords[i]);
+        }
+        
+
+    } else {}
+}
+
+
+
+
+
+
+
+
+
+
