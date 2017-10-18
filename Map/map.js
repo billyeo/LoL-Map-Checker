@@ -1,4 +1,4 @@
-console.log('Version -0.0012');
+console.log('Version -0.0013');
 
 var GlobalAccountID;
 // bad idea^ 
@@ -90,14 +90,12 @@ function printStuff(){
     
 }
 
-function storeCoordinate(xVal, yVal, array) {
-    array.push({x: xVal, y: yVal});
-}
 
 
 
 
-var Kill_coords = [];
+
+//var Kill_coords = [];
 
 function matchLookUp() {
     var SUMMONER_NAME = "";
@@ -105,7 +103,7 @@ function matchLookUp() {
 
     var API_KEY = "";
     API_KEY = $("#API-Key").val();
-    //var Kill_coords = [];
+    var Kill_coords = [];
 
     if (SUMMONER_NAME !== "") {
 
@@ -128,15 +126,10 @@ function matchLookUp() {
                 			var x = json.frames[i].events[j].position.x;
                 			//console.log(x);
                 			var y = json.frames[i].events[j].position.y;
-                			Kill_coords.push({x, y});
-                			//console.log("in kill coords");
-                			//console.log(Kill_coords[0]);
-                			//storeCoordinate(json.frames[i].events[j].position.x, json.frames[i].events[j].position.y, Kill_coords);
+                			Kill_coords.push([x, y]);
                 		}
+                	}
                 }
-
-            }
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
@@ -146,9 +139,10 @@ function matchLookUp() {
         
         
         console.log(Kill_coords);
-        var a = Kill_coords[3].x;
-        console.log(a);
-        console.log(Kill_coords[3].x);
+        displaymap(Kill_coords);
+
+
+
 
     } else {}
 }
@@ -157,12 +151,12 @@ function matchLookUp() {
 
 
 
-function displaymap(){
+function displaymap(Kill_coords){
 //var cords = [
   //      [561 ,581]
  //   ],
     // Domain for the current Summoner's Rift on the match history website's mini-map
-    domain = {
+    var domain = {
             min: {x: -570, y: -420},
             max: {x: 15220, y: 14980}
     },
