@@ -1,4 +1,4 @@
-console.log('Version -0.0013');
+console.log('Version -0.0014');
 
 var GlobalAccountID;
 // bad idea^ 
@@ -46,7 +46,7 @@ function printStuff(){
     console.log("calling summoner lookup");
     summonerLookUp();
 
-    console.log(GlobalAccountID);
+    //console.log(GlobalAccountID);
     if (GlobalAccountID !== "") {
 
         $.ajax({
@@ -58,11 +58,11 @@ function printStuff(){
             },
             success: function (json) {
                 //getting data from json into local variables
-                console.log(json);
+                //console.log(json);
                 
                 var matches = json.matches;
 
-                console.log(matches);
+                //console.log(matches);
                 //writing to website this shit
                 var list = $('<ul>');
                 $('body').append(list);
@@ -139,7 +139,8 @@ function matchLookUp() {
         
         
         console.log(Kill_coords);
-        displaymap(Kill_coords);
+        var test = [[250,250]];
+        displaymap(test);
 
 
 
@@ -152,11 +153,14 @@ function matchLookUp() {
 
 
 function displaymap(Kill_coords){
-//var cords = [
-  //      [561 ,581]
- //   ],
+	console.log(Kill_coords);
+
+var cords = Kill_coords, //[
+        //[561 ,581]
+    //],
     // Domain for the current Summoner's Rift on the match history website's mini-map
-    var domain = {
+    
+    domain = {
             min: {x: -570, y: -420},
             max: {x: 15220, y: 14980}
     },
@@ -190,7 +194,7 @@ svg.append('image')
     .attr('height', height);
 
 svg.append('svg:g').selectAll("circle")
-    .data(Kill_coords)
+    .data(cords)
     .enter().append("svg:circle")
         .attr('cx', function(d) { return xScale(d[0]) })
         .attr('cy', function(d) { return yScale(d[1]) })
