@@ -104,7 +104,7 @@ function matchLookUp() {
     var API_KEY = "";
     API_KEY = $("#API-Key").val();
     var Kill_coords = [];
-
+    
     if (SUMMONER_NAME !== "") {
 
         $.ajax({
@@ -133,16 +133,21 @@ function matchLookUp() {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
-            }
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
         });
-        console.log("Finished");
+        //console.log("Finished");
         
         
-        console.log(Kill_coords);
-        var test = [[250,250]];
-        displaymap(test);
-
-
+        //console.log(Kill_coords);
+        //var test = [[250,250]];
+        //displaymap(test);
+        //console.log(a[3]);
+       // console.log(a.length);
+       displaymap(Kill_coords);
 
 
     } else {}
@@ -153,7 +158,7 @@ function matchLookUp() {
 
 
 function displaymap(Kill_coords){
-	console.log(Kill_coords);
+	//console.log(Kill_coords);
 
 var cords = Kill_coords, //[
         //[561 ,581]
