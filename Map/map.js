@@ -143,10 +143,7 @@ function matchLookUp() {
         
         
         //console.log(Kill_coords);
-        //var test = [[250,250]];
-        //displaymap(test);
-        //console.log(a[3]);
-       // console.log(a.length);
+        
        displaymap(Kill_coords);
 
 
@@ -161,8 +158,7 @@ function displaymap(Kill_coords){
 	//console.log(Kill_coords);
 
 var cords = Kill_coords, //[
-        //[561 ,581]
-    //],
+    
     // Domain for the current Summoner's Rift on the match history website's mini-map
     
     domain = {
