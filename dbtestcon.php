@@ -12,6 +12,7 @@ $column="username";
 mysql_connect($hostname,$username,$password);
 mysql_select_db($dbname);
 
+//test to access tables to check for data username column
 $query="SELECT * FROM $tablename";
 $data=mysql_query($query);
 
