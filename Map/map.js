@@ -1,25 +1,24 @@
-console.log('Version -0.0014');
+console.log('Version -0.00269');
 
 var GlobalAccountID;
 // bad idea^ 
 
 //function that fetchs the users id
-function summonerLookUp(){
+function summonerLookUp(SUMMONER_NAME){
     console.log("in summoner lookup");
-	var SUMMONER_NAME = "";
-    SUMMONER_NAME = $("#userName").val();
-
-    var API_KEY = "";
-    API_KEY = $("#API-Key").val();
+	//var SUMMONER_NAME = "";
+    //SUMMONER_NAME = $("#userName").val();
+    var acc_ID = "";
+    //var API_KEY = "";
+    //API_KEY = $("#API-Key").val();
 
     if (SUMMONER_NAME !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=' + API_KEY,
+            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
             type: 'GET',
             dataType: 'json',
             data: {
-
             },
             success: function (json) {
                 //getting data from json into local variables
@@ -27,6 +26,8 @@ function summonerLookUp(){
                 var accountID = json.accountId;
                 //setting global paramter
                 GlobalAccountID= accountID;
+                acc_ID = GlobalAccountID;
+                return acc_ID;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
@@ -34,85 +35,58 @@ function summonerLookUp(){
             async: false
             // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
         });
-
-
     } else {}
+    return acc_ID;
 }
 
-function printStuff(){
-    console.log("first");
-    var API_KEY = "";
-    API_KEY = $("#API-Key").val();
+// This is the only function we call, This calls summoner lookup and lists the recent matches of a user
+function printStuff(name){
+    //var API_KEY = "";
+    //API_KEY = $("#API-Key").val();
     console.log("calling summoner lookup");
-    summonerLookUp();
-
-    //console.log(GlobalAccountID);
-    if (GlobalAccountID !== "") {
+    var Account_ID = summonerLookUp(name);
+    if (Account_ID !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/'+ GlobalAccountID + '/recent?api_key=' + API_KEY,
+            url: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/'+ GlobalAccountID + '/recent?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
             type: 'GET',
             dataType: 'json',
             data: {
-
             },
             success: function (json) {
-                //getting data from json into local variables
-                //console.log(json);
-                
                 var matches = json.matches;
-
-                //console.log(matches);
-                //writing to website this shit
+                //This is where we print the last 5 matches the summoner played
                 var list = $('<ul>');
                 $('body').append(list);
                 matches.forEach(function(match, i){
                     if(i<5){
                      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
                     }
-                })
-
-
-
-
-                
+                })   
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
             }
         });
-
-
-    } else {}
-
-
-    //});
-    
+    } else {}  
 }
 
 
+// This function calls display map, and plots a specific matchs kill coords
+function matchLookUp(MATCH_NUM) {
+    //var SUMMONER_NAME = "";
+    //SUMMONER_NAME = $("#userName").val();
 
-
-
-
-//var Kill_coords = [];
-
-function matchLookUp() {
-    var SUMMONER_NAME = "";
-    SUMMONER_NAME = $("#userName").val();
-
-    var API_KEY = "";
-    API_KEY = $("#API-Key").val();
+    //var API_KEY = "RGAPI-c16c2668-0913-4123-9416-113f700d30f0";
     var Kill_coords = [];
     
-    if (SUMMONER_NAME !== "") {
+    if (MATCH_NUM !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/2612838793' + '?api_key=' + 'RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/' + MATCH_NUM + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
             type: 'GET',
             dataType: 'json',
             data: {
-
             },
             success: function (json) {
                 //Loop to search for a Champion kill, then store its coordinate
@@ -138,16 +112,10 @@ function matchLookUp() {
             async: false // This line is the holy grail of our project/
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
-        });
-        //console.log("Finished");
-        
-        
-        //console.log(Kill_coords);
-        
+        });   
        displaymap(Kill_coords);
-
-
-    } else {}
+    } 
+    else {}
 }
 
 
@@ -157,7 +125,7 @@ function matchLookUp() {
 function displaymap(Kill_coords){
 	//console.log(Kill_coords);
 
-var cords = Kill_coords, //[
+	var cords = Kill_coords, 
     
     // Domain for the current Summoner's Rift on the match history website's mini-map
     
@@ -170,24 +138,24 @@ var cords = Kill_coords, //[
     bg = "http://opgg-static.akamaized.net/images/maps/11.png",
     xScale, yScale, svg;
 
-color = d3.scale.linear()
+	color = d3.scale.linear()
     .domain([0, 3])
     .range(["white", "steelblue"])
     .interpolate(d3.interpolateLab);
 
-xScale = d3.scale.linear()
+	xScale = d3.scale.linear()
   .domain([domain.min.x, domain.max.x])
   .range([0, width]);
 
-yScale = d3.scale.linear()
+	yScale = d3.scale.linear()
   .domain([domain.min.y, domain.max.y])
   .range([height, 0]);
 
-svg = d3.select("#map").append("svg:svg")
+	svg = d3.select("#map").append("svg:svg")
     .attr("width", width)
     .attr("height", height);
 
-svg.append('image')
+	svg.append('image')
     .attr('xlink:href', bg)
     .attr('x', '0')
     .attr('y', '0')
@@ -202,7 +170,3 @@ svg.append('svg:g').selectAll("circle")
         .attr('r', 5)
         .attr('class', 'kills');
     };
-
-
-
-
