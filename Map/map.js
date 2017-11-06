@@ -39,6 +39,21 @@ function summonerLookUp(SUMMONER_NAME){
     return acc_ID;
 }
 
+function createButton(func, match_n){
+    var button = document.createElement("input");
+    button.type = "button";
+    button.value = match_n;
+    
+    button.onclick = function(){
+        console.log("plz work");
+        func();
+        console.log("test");
+        //summonerLookUp("test");
+    };
+    document.body.appendChild(button);
+}
+
+
 // This is the only function we call, This calls summoner lookup and lists the recent matches of a user
 function printStuff(name){
     //var API_KEY = "";
@@ -56,13 +71,18 @@ function printStuff(name){
             success: function (json) {
                 var matches = json.matches;
                 //This is where we print the last 5 matches the summoner played
-                var list = $('<ul>');
-                $('body').append(list);
                 matches.forEach(function(match, i){
                     if(i<5){
-                     list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
-                    }
-                })   
+                    createButton(function(){matchLookUp(match.gameId);}, match.gameId);
+                }
+            })
+                // var list = $('<ul>');
+                // $('body').append(list);
+                // matches.forEach(function(match, i){
+                //     if(i<5){
+                //      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
+                //     }
+                // })   
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
