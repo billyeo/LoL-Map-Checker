@@ -90,11 +90,11 @@ function printStuff(name){
                 var matches = json.matches;
                 //This is where we print the last 5 matches the summoner played
                 matches.forEach(function(match, i){
-                    if(i<5){
+                    //if(i<5){
                     GlobalRecentMatches.push(match.gameId);
                     createButton(function(){matchLookUp(match.gameId);}, match.gameId);
                     //console.log("He1");
-                }
+                //}
             })
                 // var list = $('<ul>');
                 // $('body').append(list);
