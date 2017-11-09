@@ -1,6 +1,7 @@
 console.log('Version -0.00269');
 
 var GlobalAccountID;
+var GlobalRecentMatches = [];
 // bad idea^ 
 
 //function that fetchs the users id
@@ -73,7 +74,8 @@ function printStuff(name){
                 //This is where we print the last 5 matches the summoner played
                 matches.forEach(function(match, i){
                     if(i<5){
-                    createButton(function(){matchLookUp(match.gameId);}, match.gameId);
+                        GlobalRecentMatches.push(match.gameId);
+                        createButton(function(){matchLookUp(match.gameId);}, match.gameId);
                 }
             })
                 // var list = $('<ul>');
@@ -83,14 +85,93 @@ function printStuff(name){
                 //      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
                 //     }
                 // })   
+
+                createButton(function(){multiMatchLookUp(GlobalRecentMatches);}, 'Multi-Map');
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("error getting Summoner data!");
-            }
+            },
+
+            async: false 
         });
     } else {}  
+
+    console.log(GlobalRecentMatches);
+    //multiMatchLookUp(GlobalRecentMatches);
 }
 
+function multiMatchLookUp(RECENT_MATCHES){
+    console.log("Entered multiMatchLookUp");
+    var multiKill_coords = [];
+    
+    var currID = GlobalAccountID;
+    for(m = 0; m<RECENT_MATCHES.length;m++)  {
+        var participantID = 'empty';
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                //Loop to search for a Champion kill, then store its coordinate
+                for (i=0; i<json.participantIdentities.length; i++)
+                {
+                    if (json.participantIdentities[i].player.accountId == currID)
+                    {
+                        participantID = json.participantIdentities[i].participantId;
+                        console.log(participantID);
+                    }
+    
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });
+
+        console.log(participantID);
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                //Loop to search for a Champion kill, then store its coordinate
+                for (i=0; i<json.frames.length; i++)
+                {
+                    for (j=0; j<json.frames[i].events.length; j++)
+                    {
+                        if (json.frames[i].events[j].type=='CHAMPION_KILL' && json.frames[i].events[j].victimId == participantID)
+                        {
+                            //console.log(json.frames[i].events[j].position.x);
+                            var x = json.frames[i].events[j].position.x;
+                            //console.log(x);
+                            var y = json.frames[i].events[j].position.y;
+                            multiKill_coords.push([x, y]);
+                        }
+                    }
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });   
+        
+    } 
+    console.log(multiKill_coords);
+    displaymap(multiKill_coords);
+}
 
 // This function calls display map, and plots a specific matchs kill coords
 function matchLookUp(MATCH_NUM) {
@@ -99,9 +180,39 @@ function matchLookUp(MATCH_NUM) {
 
     //var API_KEY = "RGAPI-c16c2668-0913-4123-9416-113f700d30f0";
     var Kill_coords = [];
-    
+    var participantID = 'empty';
+    var currID = GlobalAccountID;
     if (MATCH_NUM !== "") {
 
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + MATCH_NUM + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                //Loop to search for a Champion kill, then store its coordinate
+                for (i=0; i<json.participantIdentities.length; i++)
+                {
+                    if (json.participantIdentities[i].player.accountId == currID)
+                    {
+                        participantID = json.participantIdentities[i].participantId;
+                        console.log(participantID);
+                    }
+    
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });
+
+        console.log(participantID);
         $.ajax({
             url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/' + MATCH_NUM + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
             type: 'GET',
@@ -114,7 +225,7 @@ function matchLookUp(MATCH_NUM) {
                 {
                 	for (j=0; j<json.frames[i].events.length; j++)
                 	{
-                		if (json.frames[i].events[j].type=='CHAMPION_KILL')
+                		if (json.frames[i].events[j].type=='CHAMPION_KILL' && json.frames[i].events[j].victimId == participantID)
                 		{
                 			//console.log(json.frames[i].events[j].position.x);
                 			var x = json.frames[i].events[j].position.x;
@@ -169,7 +280,7 @@ function displaymap(Kill_coords){
 
 	yScale = d3.scale.linear()
   .domain([domain.min.y, domain.max.y])
-  .range([height, 0]);
+  .range([height, 0 ]);
 
 	svg = d3.select("#map").append("svg:svg")
     .attr("width", width)
@@ -188,5 +299,8 @@ svg.append('svg:g').selectAll("circle")
         .attr('cx', function(d) { return xScale(d[0]) })
         .attr('cy', function(d) { return yScale(d[1]) })
         .attr('r', 5)
-        .attr('class', 'kills');
+        .attr('class', 'kills')
+        .style("fill", "red")
+        .style("opacity", 0.5)
+        .style("stroke", "black");
     };

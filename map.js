@@ -104,7 +104,6 @@ function printStuff(name){
                 //     }
                 // })   
                 createButton(function(){multiMatchLookUp(GlobalRecentMatches);}, 'Multi-Map');
-                //console.log("hei2");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
