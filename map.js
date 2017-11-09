@@ -79,7 +79,7 @@ function printStuff(name){
     console.log("calling summoner lookup");
     var Account_ID = summonerLookUp(name);
     if (Account_ID !== "") {
-
+        //console.log("hi");
         $.ajax({
             url: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/'+ GlobalAccountID + '/recent?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
             type: 'GET',
@@ -93,6 +93,7 @@ function printStuff(name){
                     if(i<5){
                     GlobalRecentMatches.push(match.gameId);
                     createButton(function(){matchLookUp(match.gameId);}, match.gameId);
+                    //console.log("He1");
                 }
             })
                 // var list = $('<ul>');

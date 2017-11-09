@@ -44,17 +44,8 @@
 -->
 <div class = "topbar">
 <div class="leftbar"> 
-<a href= "main.html"> <img src="Images/icon1.png" alt="lol icon" width=20px height=20px>LoLMC </a>
+<a href= "index.html"> <img src="Images/icon1.png" alt="lol icon" width=25px height=25px>LoLMC </a>
 </div>
-<!--
-<div class="topnav" id="myTopNav">
-	<a href="sample.html"> Home</a>
-	<a href="about"> About</a>
-	<a href="contactus"> Contact Us</a>
-	<a href="feedback"> Feedback</a>
-	<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-</div>
--->
 
 <div class="titlepanel">
 	<form class="searchBox">
@@ -64,19 +55,29 @@
   		<option value="eu">EU</option>
   		<option value="kr">KR</option>
 	</select>
-	<input type="search" name="search" placeholder="Search Summoner..">
+	<input type="search" id="sbox1" name="search" placeholder="Search Summoner..">
 	<input type="submit" class="btn btn-info" value=".LOLMC">
 	</form>
 </div>
 </div>
 
 <div class="displayEverything">
-<div class="summonerNameInfo">
-	<h1 id= "sName"> SUMMONER INFO HERE <h1>
-</div>
+	<div class="summonerBox">
+		<br> <br> <br> <br>
+		<br> <br> <br> 
+		<br> <br> <br>
+		<br> <br> <br>
+		<div id= "sIcon"> 
+			<img src="Images/icon3.jpg" id= "tempIcon" alt= "icon" width="45px" height="45px">
+		</div>
+		<div id= "sName"> Billyeo </div>
+		<div id= "rankStat"> Challenger I </div>
+	</div>
 
-<h2>Received: </h2>
-<p><b>name: </b> <span id="write" ></span></p>
+	<div class="summonerData">
+		<p> <span id="write" ></span></p>
+	</div>
+	
 </div>
 
 <div class="footer"> 

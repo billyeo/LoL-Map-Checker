@@ -29,18 +29,18 @@
 
 <div class = "topbar">
 <div class="leftbar"> 
-<a href= "index.html"> <img src="Images/icon1.png" alt="lol icon" width=20px height=20px>LoLMC </a>
+<a href= "index.html"> <img src="Images/icon1.png" alt="lol icon" width=25px height=25px >LoLMC </a>
 </div>
 
 <div class="titlepanel">
-	<form class="searchBox" action= "sample.html" method = "GET">
+	<form class="searchBox">
 	<select>
 		<option value="na" selected>NA</option>
   		<option value="lan">LAN</option>
   		<option value="eu">EU</option>
   		<option value="kr">KR</option>
 	</select>
-	<input type="text" name="search" placeholder="Search Summoner..">
+	<input type="search" id="sbox1" name="search" placeholder="Search Summoner..">
 	<input type="submit" class="btn btn-info" value=".LOLMC">
 	</form>
 </div>
@@ -85,23 +85,6 @@
 		</ul>
 </div>
 
-<script>
-$(document).ready(function() {
-  getQuote();
-  $('#new-quote').on('click', getQuote);
-  $('#tweet-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
-    }
-  });
-  $('#tumblr-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
-    }
-  });
-});
-
-</script>
 
 </body>
 </html>
