@@ -29,7 +29,7 @@
 
 <div class = "topbar">
 <div class="leftbar"> 
-<a href= "main.html"> <img src="Images/icon1.png" alt="lol icon" width=25px height=25px >LoLMC </a>
+<a href= "index.html"> <img src="Images/icon1.png" alt="lol icon" width=25px height=25px >LoLMC </a>
 </div>
 
 <div class="titlepanel">
@@ -62,16 +62,16 @@
 <div class="footer"> 
 		<ul class="footer_left">
 				<li class="footer_items">
-					<a href= "main.html">Home</a>
+					<a href= "index.html">Home</a>
 				</li>
 				<li class="footer_items">
-					<a href= "main.html">About</a>
+					<a href= "index.html">About</a>
 				</li>
 				<li class="footer_items">
-					<a href= "main.html">Feedback</a>
+					<a href= "index.html">Feedback</a>
 				</li>
 				<li class="footer_items">
-					<a href= "main.html">Contact Us</a>
+					<a href= "index.html">Contact Us</a>
 				</li>
 		</ul>
 
@@ -85,23 +85,6 @@
 		</ul>
 </div>
 
-<script>
-$(document).ready(function() {
-  getQuote();
-  $('#new-quote').on('click', getQuote);
-  $('#tweet-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
-    }
-  });
-  $('#tumblr-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
-    }
-  });
-});
-
-</script>
 
 </body>
 </html>
