@@ -115,7 +115,8 @@ function printStuff(name){
 
 function multiMatchLookUp(RECENT_MATCHES){
     console.log("Entered multiMatchLookUp");
-    var multiKill_coords = [];
+    var multiKill_coordsRED = [];
+    var multiKill_coordsBLUE = [];
     
     var currID = GlobalAccountID;
     for(m = 0; m<RECENT_MATCHES.length;m++)  {
@@ -167,7 +168,13 @@ function multiMatchLookUp(RECENT_MATCHES){
                             var x = json.frames[i].events[j].position.x;
                             //console.log(x);
                             var y = json.frames[i].events[j].position.y;
-                            multiKill_coords.push([x, y]);
+                            if(participantID > 4 ){
+                                 multiKill_coordsBLUE.push([x, y]);
+                             }
+                             else{
+                                multiKill_coordsRED.push([x, y]);
+                             }
+
                         }
                     }
                 }
@@ -182,8 +189,7 @@ function multiMatchLookUp(RECENT_MATCHES){
         });   
         
     } 
-    console.log(multiKill_coords);
-    displaymap(multiKill_coords);
+    displaymap(multiKill_coordsRED, multiKill_coordsBLUE);
 }
 
 // This function calls display map, and plots a specific matchs kill coords
@@ -192,7 +198,8 @@ function matchLookUp(MATCH_NUM) {
     //SUMMONER_NAME = $("#userName").val();
 
     //var API_KEY = "RGAPI-c16c2668-0913-4123-9416-113f700d30f0";
-    var Kill_coords = [];
+    var Kill_coordsRED = [];
+    var Kill_coordsBLUE = [];
     var participantID = 'empty';
     var currID = GlobalAccountID;
     if (MATCH_NUM !== "") {
@@ -244,7 +251,12 @@ function matchLookUp(MATCH_NUM) {
                             var x = json.frames[i].events[j].position.x;
                             //console.log(x);
                             var y = json.frames[i].events[j].position.y;
-                            Kill_coords.push([x, y]);
+                            if(participantID > 4 ){
+                                 Kill_coordsBLUE.push([x, y]);
+                             }
+                             else{
+                                Kill_coordsRED.push([x, y]);
+                             }
                         }
                     }
                 }
@@ -257,7 +269,7 @@ function matchLookUp(MATCH_NUM) {
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
         });   
-       displaymap(Kill_coords);
+       displaymap(Kill_coordsRED, Kill_coordsBLUE);
     } 
     else {}
 }
@@ -265,12 +277,12 @@ function matchLookUp(MATCH_NUM) {
 
 
 
-
-
-function displaymap(Kill_coords){
+function displaymap(Kill_coordsRED, Kill_coordsBLUE){
     //console.log(Kill_coords);
 
-    var cords = Kill_coords, 
+
+    var cordsRED = Kill_coordsRED,
+    cordsBLUE = Kill_coordsBLUE,
     
     // Domain for the current Summoner's Rift on the match history website's mini-map
     
@@ -307,9 +319,24 @@ function displaymap(Kill_coords){
     .attr('width', width)
     .attr('height', height);
 
-svg.append('svg:g').selectAll("circle")
-    .data(cords)
-    .enter().append("svg:circle")
+    
+    
+    svg.append('svg:g').selectAll("circle")
+        .data(cordsBLUE)
+        .enter().append("svg:circle")
+        .attr('cx', function(d) { return xScale(d[0]) })
+        .attr('cy', function(d) { return yScale(d[1]) })
+        .attr('r', 5)
+        .attr('class', 'kills')
+        .style("fill", "blue")
+        .style("opacity", 0.7)
+        .style("stroke", "black");
+    
+
+    
+    svg.append('svg:g').selectAll("circle")
+        .data(cordsRED)
+        .enter().append("svg:circle")
         .attr('cx', function(d) { return xScale(d[0]) })
         .attr('cy', function(d) { return yScale(d[1]) })
         .attr('r', 5)
@@ -317,4 +344,7 @@ svg.append('svg:g').selectAll("circle")
         .style("fill", "red")
         .style("opacity", 0.7)
         .style("stroke", "black");
-    };
+    
+
+   
+}
