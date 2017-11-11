@@ -4,6 +4,8 @@ var GlobalAccountID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
+
+
 function processUser(){
     var parameters = window.location.search.substring(1).split("&");
 
@@ -104,6 +106,8 @@ function printStuff(name){
                 //     }
                 // })   
                 createButton(function(){multiMatchLookUp(GlobalRecentMatches);}, 'Multi-Map');
+                createButton(function(){multiCSGraph(GlobalRecentMatches);}, 'Multi-CS-Graph');
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
@@ -111,8 +115,94 @@ function printStuff(name){
             }
         });
     } else {}  
+    
 }
 
+
+function multiCSGraph(RECENT_MATCHES){
+    console.log("Entered multiCSGraph");
+    var currID = GlobalAccountID;
+    var labelsTemp = [];
+    var dataTempArray = [];
+    var dataTemp = 0;
+
+    for(m = 0; m<RECENT_MATCHES.length;m++)  {
+        var participantID = 'empty';
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                
+                // find participant id
+                for (i=0; i<json.participantIdentities.length; i++)
+                {
+                    if (json.participantIdentities[i].player.accountId == currID)
+                    {
+                        participantID = json.participantIdentities[i].participantId;
+                        console.log(participantID);
+                    }
+    
+
+                }
+                for (i=0; i<json.participants.length; i++)
+                {
+                    if (json.participants[i].participantId == participantID)
+                    {
+                        dataTemp = json.participants[i].stats.totalMinionsKilled;
+                        console.log(dataTemp);
+                    }
+    
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });
+
+        labelsTemp.push(m+1);
+        dataTempArray.push(dataTemp);
+
+
+    }
+
+    var chartData = {
+    labels: labelsTemp,
+    datasets: [
+        {
+            fillColor: "#79D1CF",
+            strokeColor: "#79D1CF",
+            data: dataTempArray
+        }
+    ]
+};
+
+var ctx = document.getElementById("myChart1").getContext("2d");
+var myLine = new Chart(ctx).Line(chartData, {
+    showTooltips: false,
+    onAnimationComplete: function () {
+
+        var ctx = this.chart.ctx;
+        ctx.font = this.scale.font;
+        ctx.fillStyle = this.scale.textColor
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+
+        this.datasets.forEach(function (dataset) {
+            dataset.points.forEach(function (points) {
+                ctx.fillText(points.value, points.x, points.y - 10);
+            });
+        })
+    }
+});
+}
 function multiMatchLookUp(RECENT_MATCHES){
     console.log("Entered multiMatchLookUp");
     var multiKill_coordsRED = [];
@@ -191,6 +281,8 @@ function multiMatchLookUp(RECENT_MATCHES){
     } 
     displaymap(multiKill_coordsRED, multiKill_coordsBLUE);
 }
+
+
 
 // This function calls display map, and plots a specific matchs kill coords
 function matchLookUp(MATCH_NUM) {
