@@ -107,6 +107,7 @@ function printStuff(name){
                 // })   
                 createButton(function(){multiMatchLookUp(GlobalRecentMatches);}, 'Multi-Map');
                 createButton(function(){multiCSGraph(GlobalRecentMatches);}, 'Multi-CS-Graph');
+                MultiKDA(GlobalRecentMatches);
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -118,6 +119,129 @@ function printStuff(name){
     
 }
 
+function MultiKDA(RECENT_MATCHES){
+    console.log("Entered MultiKDA");
+    var currID = GlobalAccountID;
+    var dataKills = 0;
+    var dataDeaths = 0;
+    var dataAssists = 0;
+    var winCount = 0;
+    var lossCount = 0;
+
+
+    for(m = 0; m<RECENT_MATCHES.length;m++)  {
+        var participantID = 'empty';
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                
+                // find participant id
+                for (i=0; i<json.participantIdentities.length; i++)
+                {
+                    if (json.participantIdentities[i].player.accountId == currID)
+                    {
+                        participantID = json.participantIdentities[i].participantId;
+                        console.log(participantID);
+                    }
+    
+
+                }
+                for (i=0; i<json.participants.length; i++)
+                {
+                    if (json.participants[i].participantId == participantID)
+                    {
+                        dataKills += json.participants[i].stats.kills;
+                        dataDeaths += json.participants[i].stats.deaths;
+                        dataAssists += json.participants[i].stats.assists;
+
+                        if (json.participants[i].stats.win){
+                            winCount++;
+                        }
+                        else{
+                            lossCount++;
+                        }
+
+                    }
+    
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Summoner data!");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });
+    }
+
+    dataKills /= 20;
+    dataDeaths /= 20;
+    dataAssists /= 20;
+
+
+    var data = [{
+        value: winCount,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Win"
+    }, {
+        value: lossCount,
+        color: "#F7464A",
+        highlight: "#FF5A5E",
+        label: "Loss"
+    }];
+
+    var ctx = document.getElementById("winlossChart").getContext("2d");
+
+    
+
+    var myNewChart = new Chart(ctx).Pie(data);
+    console.log('end of print pie');
+
+    var optionsPie = {
+            tooltipEvents: [],
+            showTooltips: true,
+            onAnimationComplete: function() {
+                this.showTooltip(this.segments, true);
+            },
+            tooltipTemplate: "<%= label %> - <%= value %>"
+        };
+
+    var kdadata = [{
+    value: dataDeaths,
+    color: "#F7464A",
+    highlight: "#FF5A5E",
+    label: "Deaths",
+    labelColor: 'white',
+    labelFontSize: '16'
+}, {
+    value: dataKills,
+    color: "#46BFBD",
+    highlight: "#5AD3D1",
+    label: "Kills",
+    labelColor: 'white',
+    labelFontSize: '16'
+}, {
+    value: dataAssists,
+    color: "#FDB45C",
+    highlight: "#FFC870",
+    label: "Assists",
+    labelColor: 'white',
+    labelFontSize: '16'
+}];
+
+var ctx2 = document.getElementById("kdaChart").getContext("2d");
+
+    
+
+    var myNewChart2 = new Chart(ctx2).Pie(kdadata,optionsPie);
+}
 
 function multiCSGraph(RECENT_MATCHES){
     console.log("Entered multiCSGraph");
