@@ -76,7 +76,10 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade active" id="summary">...</div>
+    <div role="tabpanel" class="tab-pane fade active" id="summary">...
+	    <div id="sName"></div>
+	    <div id="map"></div>
+	  </div>
     <div role="tabpanel" class="tab-pane fade" id="profile">...</div>
     <div role="tabpanel" class="tab-pane fade" id="ranked">...</div>
     <div role="tabpanel" class="tab-pane fade" id="runes">...</div>
@@ -114,7 +117,20 @@
     </div>
 </footer>
 
-
+<!--testing-->
+<script>
+	window.addEventListener('load', function() { 
+    		//alert('hello!');
+    		var x = processUser();
+    		printStuff(x);
+  	}, false);
+	</script>
+	
+<script type = "text/javascript">
+	var x  = processUser();
+	document.getElementById("sName").innerHTML = x;
+</script>
+<!--end-testing-->
 <!--<script> queryize(window.location.href)['search'] </script>-->
 
 <script type = "text/javascript">
