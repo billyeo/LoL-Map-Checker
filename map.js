@@ -83,7 +83,7 @@ function printStuff(name){
     if (Account_ID !== "") {
         //console.log("hi");
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/'+ GlobalAccountID + '/recent?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/matchSearch?id='+ GlobalAccountID,
             type: 'GET',
             dataType: 'json',
             data: {
@@ -132,7 +132,7 @@ function MultiKDA(RECENT_MATCHES){
     for(m = 0; m<RECENT_MATCHES.length;m++)  {
         var participantID = 'empty';
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch='+ RECENT_MATCHES[m],
             type: 'GET',
             dataType: 'json',
             data: {
@@ -253,7 +253,7 @@ function multiCSGraph(RECENT_MATCHES){
     for(m = 0; m<RECENT_MATCHES.length;m++)  {
         var participantID = 'empty';
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch='+ RECENT_MATCHES[m],
             type: 'GET',
             dataType: 'json',
             data: {
@@ -336,7 +336,7 @@ function multiMatchLookUp(RECENT_MATCHES){
     for(m = 0; m<RECENT_MATCHES.length;m++)  {
         var participantID = 'empty';
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch='+ RECENT_MATCHES[m],
             type: 'GET',
             dataType: 'json',
             data: {
@@ -365,7 +365,7 @@ function multiMatchLookUp(RECENT_MATCHES){
 
         console.log(participantID);
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/' + RECENT_MATCHES[m] + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/getTimeline?rmatch=' + RECENT_MATCHES[m],
             type: 'GET',
             dataType: 'json',
             data: {
@@ -421,7 +421,7 @@ function matchLookUp(MATCH_NUM) {
     if (MATCH_NUM !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/matches/' + MATCH_NUM + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch=' + MATCH_NUM,
             type: 'GET',
             dataType: 'json',
             data: {
@@ -450,7 +450,7 @@ function matchLookUp(MATCH_NUM) {
 
         console.log(participantID);
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/' + MATCH_NUM + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/getTimeline?rmatch=' + MATCH_NUM,
             type: 'GET',
             dataType: 'json',
             data: {
