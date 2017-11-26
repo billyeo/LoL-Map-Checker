@@ -31,7 +31,7 @@ function summonerLookUp(SUMMONER_NAME){
     if (SUMMONER_NAME !== "") {
 
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + SUMMONER_NAME + '?api_key=RGAPI-c16c2668-0913-4123-9416-113f700d30f0',
+            url: 'https://nodejslolmc1.herokuapp.com/sumSearch?name=' + SUMMONER_NAME,
             type: 'GET',
             dataType: 'json',
             data: {
