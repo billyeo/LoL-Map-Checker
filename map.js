@@ -145,7 +145,7 @@ function MultiKDA(RECENT_MATCHES){
                     if (json.participantIdentities[i].player.accountId == currID)
                     {
                         participantID = json.participantIdentities[i].participantId;
-                        console.log(participantID);
+                        //console.log(participantID);
                     }
     
 
