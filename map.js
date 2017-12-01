@@ -1,4 +1,4 @@
-console.log('Version -0.00270');
+console.log('Version -0.00280');
 
 var GlobalAccountID;
 var GlobalRecentMatches = [];
@@ -118,6 +118,98 @@ function printStuff(name) {
     } else { }
 
 }
+
+function CreeperScoreThingy(matchnumber) {
+    // a random match number to test : 2654536966
+    var currID = GlobalAccountID;
+    var participantID = 'empty';
+    $.ajax({
+        url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch=' + matchnumber,
+        type: 'GET',
+        dataType: 'json',
+        data: {
+        },
+        success: function (json) {
+
+            // find participant id
+            for (i = 0; i < json.participantIdentities.length; i++) {
+                if (json.participantIdentities[i].player.accountId == currID) {
+                    participantID = json.participantIdentities[i].participantId;
+                    //console.log(participantID);
+                }
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("error getting Summoner data!");
+        },
+        async: false
+    });
+
+
+
+
+    $.ajax({
+        url: 'https://nodejslolmc1.herokuapp.com/getTimeline?rmatch=' + matchnumber,
+        type: 'GET',
+        dataType: 'json',
+        data: {
+        },
+        success: function (json) {
+
+            try {
+                console.log(json.frames[5].participantFrames[participantID].minionsKilled);
+
+            }
+            catch (e) {
+                if (e) {
+                    console.log("error");
+
+                }
+            }
+            try {
+                console.log(json.frames[10].participantFrames[participantID].minionsKilled);
+
+            }
+            catch (e) {
+                if (e) {
+                    console.log("error");
+
+                }
+            }
+            try {
+                console.log(json.frames[15].participantFrames[participantID].minionsKilled);
+
+            }
+            catch (e) {
+                if (e) {
+                    console.log("error");
+
+                }
+            }
+            try {
+                console.log(json.frames[20].participantFrames[participantID].minionsKilled);
+
+            }
+            catch (e) {
+                if (e) {
+                    console.log("error");
+
+                }
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("error getting Summoner data!");
+        },
+        async: false
+    });
+}
+
+
+
+
+
+
+
 
 function MultiKDA(RECENT_MATCHES) {
     console.log("Entered MultiKDA");
