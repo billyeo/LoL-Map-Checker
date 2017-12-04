@@ -2,13 +2,14 @@
 //Script to connect to database
 
 
-$hostname="us-cdbr-iron-east-05.cleardb.net";
+$server="us-cdbr-iron-east-05.cleardb.net";
 $username="be13624714f04b";
 $password="3b5e47af";
 $db="heroku_fc399388bb27294";
 //$tablename="lolusers";
 //$column="matchid";
 
+$conn = new mysqli($server, $username, $password, $db)
 //mysql_connect($hostname,$username,$password);
 //mysql_select_db($dbname);
 
