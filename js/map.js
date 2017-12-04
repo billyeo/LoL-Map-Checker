@@ -1,4 +1,4 @@
-console.log('Version -0.00282');
+console.log('Version -0.282');
 
 var GlobalAccountID;
 var GlobalRecentMatches = [];
@@ -259,7 +259,8 @@ function MultiKDA(RECENT_MATCHES) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("We got an error in multikda but shhhh");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -367,7 +368,8 @@ function multiCSGraph(RECENT_MATCHES) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("We got an error in multicsgraph but shhhh");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -437,7 +439,8 @@ function multiMatchLookUp(RECENT_MATCHES) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("error in multimatch lookup :( part 1");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -473,7 +476,8 @@ function multiMatchLookUp(RECENT_MATCHES) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("error in multimatch lookup :( part 2");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -517,7 +521,8 @@ function matchLookUp(MATCH_NUM) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("error in match lookup :( ");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -552,7 +557,8 @@ function matchLookUp(MATCH_NUM) {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
+                //alert("error getting Summoner data!");
+                console.log("error in match lookup :( part 2");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
