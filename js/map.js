@@ -1,4 +1,4 @@
-console.log('Version -0.282');
+console.log('Version -0.283');
 
 var GlobalAccountID;
 var GlobalRecentMatches = [];
@@ -501,6 +501,21 @@ function matchLookUp(MATCH_NUM) {
     var Kill_coordsBLUE = [];
     var participantID = 'empty';
     var currID = GlobalAccountID;
+
+    var profileIcon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/';
+    var itemIcon1 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var itemIcon2= 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var itemIcon3 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var itemIcon4 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var itemIcon5 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var itemIcon6 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var item1 = 'empty';
+    var item2 = 'empty';
+    var item3 = 'empty';
+    var item4 = 'empty';
+    var item5 = 'empty';
+    var item6 = 'empty';
+
     if (MATCH_NUM !== "") {
 
         $.ajax({
@@ -510,14 +525,26 @@ function matchLookUp(MATCH_NUM) {
             data: {
             },
             success: function (json) {
-                //Loop to search for a Champion kill, then store its coordinate
+                //Loop to search for a player id, profile icon, item icons
                 for (i = 0; i < json.participantIdentities.length; i++) {
                     if (json.participantIdentities[i].player.accountId == currID) {
                         participantID = json.participantIdentities[i].participantId;
+                        profileIcon += json.participantIdentities[i].player.profileIcon;
                         console.log(participantID);
                     }
+                }
 
-
+                 for (i=0; i<json.participants.length; i++)
+                {
+                    if (json.participants[i].participantId == participantID)
+                    {
+                        itemIcon1 += json.participants[i].stats.item1;
+                        itemIcon2 += json.participants[i].stats.item2;
+                        itemIcon3 += json.participants[i].stats.item3;
+                        itemIcon4 += json.participants[i].stats.item4;
+                        itemIcon5 += json.participants[i].stats.item5;
+                        itemIcon6 += json.participants[i].stats.item6;
+                    }
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -530,6 +557,47 @@ function matchLookUp(MATCH_NUM) {
             ///////////////////////////////////////////////////////////
         });
 
+        profileIcon += '.png';
+        itemIcon1 += '.png';
+        itemIcon2 += '.png';
+        itemIcon3 += '.png';
+        itemIcon4 += '.png';
+        itemIcon5 += '.png';
+        itemIcon6 += '.png';
+        console.log(profileIcon);
+
+        // !! this is where you change the get element by id to match with new html.
+        /*
+        var img = document.createElement("img");
+        img.src = profileIcon;
+        var profileIconImage = document.getElementById("ramin_icon");
+        profileIconImage.appendChild(img);  
+
+        var img = document.createElement("img");
+        img.src = itemIcon1;
+        var profileIconImage = document.getElementById("item1");
+        profileIconImage.appendChild(img);
+        var img = document.createElement("img");
+        img.src = itemIcon2;
+        var profileIconImage = document.getElementById("item2");
+        profileIconImage.appendChild(img);
+        var img = document.createElement("img");
+        img.src = itemIcon3;
+        var profileIconImage = document.getElementById("item3");
+        profileIconImage.appendChild(img);
+        var img = document.createElement("img");
+        img.src = itemIcon4;
+        var profileIconImage = document.getElementById("item4");
+        profileIconImage.appendChild(img);
+        var img = document.createElement("img");
+        img.src = itemIcon5;
+        var profileIconImage = document.getElementById("item5");
+        profileIconImage.appendChild(img);
+        var img = document.createElement("img");
+        img.src = itemIcon6;
+        var profileIconImage = document.getElementById("item6");
+        profileIconImage.appendChild(img);
+        */
         console.log(participantID);
         $.ajax({
             url: 'https://nodejslolmc1.herokuapp.com/getTimeline?rmatch=' + MATCH_NUM,
