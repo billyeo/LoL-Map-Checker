@@ -108,7 +108,7 @@ function printStuff(name) {
                 //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
                 MultiKDA(GlobalRecentMatches);
-                multiCSGraph(GlobalRecentMatches);
+                //multiCSGraph(GlobalRecentMatches);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
@@ -220,6 +220,10 @@ function MultiKDA(RECENT_MATCHES) {
     var winCount = 0;
     var lossCount = 0;
 
+    var labelsTemp = [];
+    var dataTempArray = [];
+    var dataTemp = 0;
+
 
     for (m = 0; m < RECENT_MATCHES.length; m++) {
         var participantID = 'empty';
@@ -254,6 +258,14 @@ function MultiKDA(RECENT_MATCHES) {
                         }
 
                     }
+                }
+
+
+                for (i = 0; i < json.participants.length; i++) {
+                    if (json.participants[i].participantId == participantID) {
+                        dataTemp = json.participants[i].stats.totalMinionsKilled;
+                        //console.log(dataTemp);
+                    }
 
 
                 }
@@ -267,6 +279,9 @@ function MultiKDA(RECENT_MATCHES) {
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
         });
+
+        labelsTemp.push(m + 1);
+        dataTempArray.push(dataTemp);
     }
 
     dataKills /= 20;
@@ -330,8 +345,40 @@ function MultiKDA(RECENT_MATCHES) {
 
 
     var myNewChart2 = new Chart(ctx2).Pie(kdadata, optionsPie);
+
+
+    var chartData = {
+        labels: labelsTemp,
+        datasets: [
+            {
+                fillColor: "#79D1CF",
+                strokeColor: "#79D1CF",
+                data: dataTempArray
+            }
+        ]
+    };
+
+    var ctx = document.getElementById("myChart1").getContext("2d");
+    var myLine = new Chart(ctx).Line(chartData, {
+        showTooltips: false,
+        onAnimationComplete: function () {
+
+            var ctx = this.chart.ctx;
+            ctx.font = this.scale.font;
+            ctx.fillStyle = this.scale.textColor
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+
+            this.datasets.forEach(function (dataset) {
+                dataset.points.forEach(function (points) {
+                    ctx.fillText(points.value, points.x, points.y - 10);
+                });
+            })
+        }
+    });
 }
 
+/*
 function multiCSGraph(RECENT_MATCHES) {
     console.log("Entered multiCSGraph");
     var currID = GlobalAccountID;
@@ -413,6 +460,7 @@ function multiCSGraph(RECENT_MATCHES) {
         }
     });
 }
+*/
 function multiMatchLookUp(RECENT_MATCHES) {
     console.log("Entered multiMatchLookUp");
     var multiKill_coordsRED = [];
