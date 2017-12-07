@@ -1,4 +1,6 @@
 console.log('Version -0.2');
+// Simon when you get to this, heres a easy example how to recieve the username, password, and data.
+//https://stackoverflow.com/questions/45105992/node-js-send-data-to-backend-with-ajax
 
 var GlobalAccountID;
 var GlobalRecentMatches = [];
