@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/search.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://rawgit.com/nnnick/Chart.js/v1.0.2/Chart.min.js"></script>
+
+</head>
+
+<body >
+
+<script>
+
+		window.addEventListener('load', 
+  		function() { 
+    		//alert('hello!');
+    		var x = processUser();
+    		console.log(x);
+    		printStuff(x);
+  		}, false);
+    
+</script>
+
+<!--Navbar tab-->
+<nav class="navbar nav1">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!--lol icon button-->
+      <a class="navbar-brand titleBrand" href="index.html"> 
+      	<span><img src="css/Images/icon1.png" alt="lol icon" width=30px height=30px></span>
+      	<b>LOL<span id="title1">MAPCHECKER</span></b>
+      </a>
+    </div>
+    <!--Search bar on header-->
+    <div class="collapse navbar-collapse" id="myNavbar">
+    	<form class="navbar-form navbar-right">
+      		<div class="form-group">
+        		<div class="input-group">
+      				<div class="input-group-btn selectRegion">
+        				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Region <span class="caret"></span></button>
+        				<ul class="dropdown-menu" id="regionDrop">
+          					<li><a href="#">NA</a></li>
+          					<li><a href="#">EU</a></li>
+          					<li><a href="#">KR</a></li>
+          					<li role="separator" class="divider"></li>
+          					<li><a href="#">Separated link</a></li>
+        				</ul>
+      				</div><!-- /btn-group -->
+      				<input type="text" name = "search" class="form-control" aria-label="..." placeholder="Search Summoner...">
+    			</div><!-- /input-group -->
+      		</div>
+      		<button type="submit" class="form-submit btn btn-primary">LOLMC</button>
+    	</form>
+    	<!--Login/SignUp-->
+        <ul class="nav navbar-nav navbar-right">
+        	<li class="active"><a href="index.html">Home</a></li>
+        	<li><a href="login.html#login-form"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        	<li><a href="login.html#register-form"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+	<div class="summonerChamp"></div>
+		<div class="alert alert-warning alert-dismissible" role="alert">
+  			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  			<strong>Important!</strong> Due to Riot API changes, some data may take some time to load.
+  			<span id="user_Name"> </span>
+		</div>
+	<div class="summonerIcon"></div>
+	<div class="summonerName"></div>
+</div>
+
+<div class="container">
+	<!--Champion Summary Tab-->
+	<div id="summoner_page_header"> 
+		<div class="overlay">
+			<div class="champion_info d-flex">
+				<div class="champion_icon d-inline-block champion_border" style="background-image: url('Images/icon3.jpg')">
+				</div>
+				<div class="info-text d-inline-flex flex-column justify-center">
+					<span class="text-muted">NA </span>
+					<span class="title"> Hortato</span>
+					<span class="lvlTitle"> LEVEL 33 </span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--CS GRAPHS-->
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4 well">
+			<canvas class="chart_1" id="myChart1" height="300" width="500"></canvas>
+		</div>
+		<div class="col-sm-4 well">
+			<canvas class="chart_1" id="winlossChart" height="300" width="500"></canvas>
+		</div>
+		<div class="col-sm-4 well">
+			<canvas class="chart_1" id="kdaChart" height="300" width="500"></canvas>
+		</div>
+	</div>
+</div>
+<!--END OF CS GRAPHS-->
+
+<div class="container">
+  <!-- Nav tabs-->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#summary" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
+    <li role="presentation"><a href="#ranked" aria-controls="ranked" role="tab" data-toggle="tab">Ranked</a></li>
+    <li role="presentation"><a href="#runes" aria-controls="runes" role="tab" data-toggle="tab">Runes</a></li>
+    <li role="presentation"><a href="#champions" aria-controls="champions" role="tab" data-toggle="tab">Champions</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade active" id="summary">
+    	<div class="container">
+    		<div class="row summoner-row">
+          <!--RANK ICONS-->
+    			<div class= "col-12 col-lg-4 ranks">
+            <div class="rank d-flex align-items center">
+              <div class="d-flex align-items-center">
+                <img src="http://static.lolskill.net/img/tiers/192/diamondIV.png" alt="diamond">
+              </div>
+              <div class="d-flex align-items-center>">
+                <div class="content text-left">
+                  <p class="type color-secondary">Ranked Solo/Duo</p>
+                  <p class="tier">Diamond IV</p>
+                  <p class="leaguepoints"> 43LP</p>
+                  <p class="winratio"> 170/145 WIN/LOSE</p>
+                </div>
+              </div>
+            </div>
+    			</div>
+          <!--RANK ICONS END-->
+          <!--MATCH HISTORY TABLES-->
+    			<div class= "col-12 col-lg-8 match-history">
+            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-left p-2"> 
+                    <div class="short-info" style="width: 150px;">
+                      <p class="value" id= "outcome_1" ></p>
+                      <p class="text" id="queue_1" ></p>
+                      <p id="table_match_id_1"> <p>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="kda tip text-center">
+                      <p class="value">
+                        <span id="kills_1"></span>
+                        <span id="deaths_1"></span>
+                        <span id="assists_1"></span>
+                      </p>
+                      <p class="text">KDA</p>
+                    </div>
+                  </td>
+                  <td class=" d-md-table-cell align-middle height-100">
+                    <div class="d-flex icons">
+                      <div class="spells">
+                        <img class="spell tip" data-spell-name="Heal" data-spell-cooldown="240 seconds" data-spell-description="heals hp"
+                        data-spell-image="http://static.lolskill.net/img/spells/32/7.png" src="http://static.lolskill.net/img/spells/32/7.png" alt="" data-original-title="" title="">
+                        <img class="spell tip" data-spell-name="Flash" data-spell-cooldown="300 seconds" data-spell-description="teleports distance"
+                        data-spell-image="http://static.lolskill.net/img/spells/32/4.png" src="http://static.lolskill.net/img/spells/32/4.png" alt="" data-original-title="" title="">
+                      </div>
+                      <div class="items d-flex1 flex-column">
+                        <div class="d-flex">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                        </div>
+                      </div>
+                      <div class="trinket d-flex1 align-items-centers">
+                        <img class="item tip" data-item-name="Farsight Alteration" data-item-cost="0" data-item-image="//static.lolskill.net/img/items/64/3363.png" src="http://static.lolskill.net/img/items/32/3363.png" alt="" data-original-title="" title="">
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle "> 
+                    <div class="time tip text-center">
+                      <p class="value" id= "duration_1"></p>
+                      <p class="text" id= "date_1"></p>
+                    </div>
+                  </td>
+                  <td class="align-middle text-right p-2"> 
+                    <div class="save text-right">
+                      <button class="btn btn-primary"> Save Match</button>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTarget" aria-expanded="false" aria-controls="collapseTarget"> Expand</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="collapse" id="collapseTarget">
+              <div class="container">
+                  <div class="card card-block">
+                    SOME RANDOM DATA HERE
+                  </div>
+              </div>
+            </div>
+            <!--
+            <div class="match-sm d-flex d-md-none align-items-center justify-content-start w-100" id="d-md-none1">
+              <img class="spell tip" data-spell-name="Heal" data-spell-cooldown="240 seconds" data-spell-description="heals hp"
+              data-spell-image="http://static.lolskill.net/img/spells/32/7.png" src="http://static.lolskill.net/img/spells/32/7.png" alt="" data-original-title="" title="">
+              <img class="spell tip" data-spell-name="Flash" data-spell-cooldown="300 seconds" data-spell-description="teleports distance"
+              data-spell-image="http://static.lolskill.net/img/spells/32/4.png" src="http://static.lolskill.net/img/spells/32/4.png" alt="" data-original-title="" title="">
+              <div class="ml-auto"></div> 
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+            </div>
+            -->
+            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-left p-2"> 
+                    <div class="short-info" style="width: 150px;">
+                      <p class="value" id="outcome_2" ></p>
+                      <p class="text" id="queue_2" ></p>
+                      <p id="table_match_id_2"> <p>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="kda tip text-center">
+                      <p class="value">
+                        <span id="kills_2"></span>
+                        <span id="deaths_2"></span>
+                        <span id="assists_2"></span>
+                      </p>
+                      <p class="text">KDA</p>
+                    </div>
+                  </td>
+                  <td class="align-middle "> 
+                    <div class="time tip text-center">
+                      <p class="value" id= "duration_2"></p>
+                      <p class="text" id= "date_2"></p>
+                  </td>
+                  <td class="align-middle text-right p-2"> 
+                    <div class="save text-right">
+                      <button class="btn btn-primary"> Save Match</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-left p-2"> 
+                    <div class="short-info" style="width: 150px;">
+                      <p class="value" id="outcome_3" ></p>
+                      <p class="text" id="queue_3"></p>
+                      <p id="table_match_id_3"> <p>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="kda tip text-center">
+                      <p class="value">
+                        <span id="kills_3"></span>
+                        <span id="deaths_3"></span>
+                        <span id="assists_3"></span>
+                      </p>
+                      <p class="text">KDA</p>
+                    </div>
+                  </td>
+                  <td class="align-middle "> 
+                    <div class="time tip text-center">
+                      <p class="value" id= "duration_3"></p>
+                      <p class="text" id= "date_3"></p>
+                  </td>
+                  <td class="align-middle text-right p-2"> 
+                    <div class="save text-right">
+                      <button class="btn btn-primary"> Save Match</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-left p-2"> 
+                    <div class="short-info" style="width: 150px;">
+                      <p class="value" id="outcome_4" ></p>
+                      <p class="text" id="queue_4"></p>
+                      <p id="table_match_id_4"> <p>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="kda tip text-center">
+                      <p class="value">
+                        <span id="kills_4"></span>
+                        <span id="deaths_4"></span>
+                        <span id="assists_4"></span>
+                      </p>
+                      <p class="text">KDA</p>
+                    </div>
+                  </td>
+                  <td class="align-middle "> 
+                    <div class="time tip text-center">
+                      <p class="value" id= "duration_4"></p>
+                      <p class="text" id= "date_4"></p>
+                  </td>
+                  <td class="align-middle text-right p-2"> 
+                    <div class="save text-right">
+                      <button class="btn btn-primary"> Save Match</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-left p-2"> 
+                    <div class="short-info" style="width: 150px;">
+                      <p class="value" id=" outcome_5" >WIN</p>
+                      <p class="text" id="queue_5"></p>
+                      <p id="table_match_id_5"> <p>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="kda tip text-center">
+                      <p class="value">
+                        <span id="kills_5"></span>
+                        <span id="deaths_5"></span>
+                        <span id="assists_5"></span>
+                      </p>
+                      <p class="text">KDA</p>
+                    </div>
+                  </td>
+                  <td class="align-middle "> 
+                    <div class="time tip text-center">
+                      <p class="value" id= "duration_5"></p>
+                      <p class="text" id= "date_5"></p>
+                  </td>
+                  <td class="align-middle text-right p-2"> 
+                    <div class="save text-right">
+                      <button class="btn btn-primary"> Save Match</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+    			</div>
+          <!--MATCH HISTORY TABLE ENDS-->
+    		</div>
+    	</div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane fade" id="ranked">...
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="runes">...
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="champions">...
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!--Footer bar tab-->
+<footer>
+    <div class="navbar navbar-inverse navbar-bottom">
+        <div class="container">
+            <div class="navbar-collapse collapse" id="footer-body">
+                <ul class="nav navbar-nav">
+                    <li><a href="other.html#aboutus">About Us</a></li>
+                    <li><a href="other.html#userreview">User Review</a></li>
+                    <li><a href="other.html#termsandconditions">Terms &amp; Conditions</a></li>
+                    <li><a href="other.html#privacypolicy">Privacy Policy</a></li>
+                    <li><a href="other.html#userpolicy">User Policy</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                	<li><a href="#" class="fa fa-facebook"></a></li>
+                	<li><a href="#" class="fa fa-twitter"></a></li>
+                	<li><a href="#" class="fa fa-github"></a></li>
+                </ul>
+            </div>
+
+          	<div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footer-body">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--<script> queryize(window.location.href)['search'] </script>-->
+
+<script type = "text/javascript">
+	/*var x  = processUser();
+	document.getElementById("user_Name").innerHTML = x;*/
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+ <script src="js/index.js"> </script>
+ <script src="js/search.js"> </script>
+ <script src="js/tools.js">  </script>
+ <script src="js/map1.js"> </script>
+  		<!--<script type="text/javascript"> 
+  			queryize(window.location.href)['search'];
+  		</script> -->
+
+</body>
+</html>
