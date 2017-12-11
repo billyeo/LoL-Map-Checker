@@ -1,6 +1,7 @@
-console.log('Version -0.284');
+console.log('Version -0.285');
 
 var GlobalAccountID;
+var GloalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
@@ -70,8 +71,8 @@ function summonerLookUp(SUMMONER_NAME) {
             data: {
             },
             success: function (json) {
-                //getting data from json into local variables
-                summonerID = json.id;
+                 //getting data from json into local variables
+                GloalSummonerID = json.id;
                 var accountID = json.accountId;
                 //setting global paramter
                 GlobalAccountID = accountID;
@@ -140,6 +141,7 @@ function printStuff(name) {
                 // })   
                 //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
+                SumonnerProfile(GloalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
@@ -156,6 +158,48 @@ function printStuff(name) {
             }
         });
     } else { }
+
+}
+
+function SummonerProfile(summoner_id){
+    var curSummonerID = GloalSummonerID;
+    var tier_str = 'empty';
+    var rank_str = 'empty';
+    var wins_str = 'empty';
+    var losses_str = 'empty';
+    var leaguePoints_str = 'empty';
+    var hotstreak_str = 'empty';
+
+
+
+
+    $.ajax({
+            url: 'change this for summoner id  ---/lol/league/v3/leagues/by-summoner/{summonerId}' + curSummonerID,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                // loop through json to find summoner using summoner id
+                 for (i = 0; i < json.entries.length; i++) {
+                    if (json.entries[i].playerOrTeamId == curSummonerID) {
+                        tier_str = json.tier;
+                        rank_str = json.entries[i].rank;
+                        wins_str = json.entries[i].wins;
+                        losses_str = json.entries[i].losses;
+                        leaguePoints_str = json.entries[i].leaguePoints;
+                        hotstreak_str = 'empty';
+                        
+                        break;
+                    }
+                }
+                })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                window.location.href = "error.html";
+                //alert("error getting Summoner data!1");
+            }
+        });
 
 }
 
