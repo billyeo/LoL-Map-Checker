@@ -201,7 +201,7 @@ function SummonerProfile(summoner_id){
             }
         });
 
-}
+}}
 
 function CreeperScoreThingy(matchnumber) {
     // a random match number to test : 2654536966
