@@ -1,4 +1,4 @@
-console.log('Version -0.286');
+console.log('Version -0.287');
 
 var GlobalAccountID;
 var GloalSummonerID;
@@ -141,7 +141,7 @@ function printStuff(name) {
                 // })   
                 //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
-                SumonnerProfile(GloalSummonerID);
+                SummonerProfile(GloalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
