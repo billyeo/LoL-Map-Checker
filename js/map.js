@@ -1,4 +1,4 @@
-console.log('Version -0.287');
+console.log('Version -0.286');
 
 var GlobalAccountID;
 var GloalSummonerID;
@@ -141,7 +141,7 @@ function printStuff(name) {
                 // })   
                 //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
-                //SummonerProfile(GloalSummonerID);
+                SumonnerProfile(GloalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
@@ -174,7 +174,7 @@ function SummonerProfile(summoner_id){
 
 
     $.ajax({
-            url: 'change this for summoner id  ---/lol/league/v3/leagues/by-summoner/{summonerId}' + curSummonerID,
+            url: 'https://nodejslolmc1.herokuapp.com/getLeague?id=' + curSummonerID,
             type: 'GET',
             dataType: 'json',
             data: {
