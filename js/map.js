@@ -1,4 +1,4 @@
-console.log('Version -0.286');
+console.log('Version -0.287');
 
 var GlobalAccountID;
 var GloalSummonerID;
