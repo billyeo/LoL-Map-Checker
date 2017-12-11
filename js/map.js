@@ -1,4 +1,4 @@
-console.log('Version -0.285');
+console.log('Version -0.286');
 
 var GlobalAccountID;
 var GloalSummonerID;
@@ -193,7 +193,7 @@ function SummonerProfile(summoner_id){
                         break;
                     }
                 }
-                })
+                
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
@@ -201,7 +201,7 @@ function SummonerProfile(summoner_id){
             }
         });
 
-}}
+}
 
 function CreeperScoreThingy(matchnumber) {
     // a random match number to test : 2654536966
