@@ -1,44 +1,10 @@
-console.log('Version -0.285');
+console.log('Version -0.284');
 
 var GlobalAccountID;
-var GloalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
-function timeDifference(current, previous) {
-    
-    var msPerMinute = 60 * 1000;
-    var msPerHour = msPerMinute * 60;
-    var msPerDay = msPerHour * 24;
-    var msPerMonth = msPerDay * 30;
-    var msPerYear = msPerDay * 365;
-    
-    var elapsed = current - previous;
-    
-    if (elapsed < msPerMinute) {
-         return Math.round(elapsed/1000) + ' seconds ago';   
-    }
-    
-    else if (elapsed < msPerHour) {
-         return Math.round(elapsed/msPerMinute) + ' minutes ago';   
-    }
-    
-    else if (elapsed < msPerDay ) {
-         return Math.round(elapsed/msPerHour ) + ' hours ago';   
-    }
 
-    else if (elapsed < msPerMonth) {
-         return 'approximately ' + Math.round(elapsed/msPerDay) + ' days ago';   
-    }
-    
-    else if (elapsed < msPerYear) {
-         return 'approximately ' + Math.round(elapsed/msPerMonth) + ' months ago';   
-    }
-    
-    else {
-         return 'approximately ' + Math.round(elapsed/msPerYear ) + ' years ago';   
-    }
-}
 
 function processUser() {
     var parameters = window.location.search.substring(1).split("&");
@@ -71,8 +37,8 @@ function summonerLookUp(SUMMONER_NAME) {
             data: {
             },
             success: function (json) {
-                 //getting data from json into local variables
-                GloalSummonerID = json.id;
+                //getting data from json into local variables
+                summonerID = json.id;
                 var accountID = json.accountId;
                 //setting global paramter
                 GlobalAccountID = accountID;
@@ -141,16 +107,8 @@ function printStuff(name) {
                 // })   
                 //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
-                SumonnerProfile(GloalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
-                //billy's holy grail
-                var x = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
-                var i;
-                for (i = 0; i < x.length; i++) {
-                    x[i].innerHTML = GlobalRecentMatches[i];
-                }
-                //hehehehehehhe
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
@@ -158,48 +116,6 @@ function printStuff(name) {
             }
         });
     } else { }
-
-}
-
-function SummonerProfile(summoner_id){
-    var curSummonerID = GloalSummonerID;
-    var tier_str = 'empty';
-    var rank_str = 'empty';
-    var wins_str = 'empty';
-    var losses_str = 'empty';
-    var leaguePoints_str = 'empty';
-    var hotstreak_str = 'empty';
-
-
-
-
-    $.ajax({
-            url: 'change this for summoner id  ---/lol/league/v3/leagues/by-summoner/{summonerId}' + curSummonerID,
-            type: 'GET',
-            dataType: 'json',
-            data: {
-            },
-            success: function (json) {
-                // loop through json to find summoner using summoner id
-                 for (i = 0; i < json.entries.length; i++) {
-                    if (json.entries[i].playerOrTeamId == curSummonerID) {
-                        tier_str = json.tier;
-                        rank_str = json.entries[i].rank;
-                        wins_str = json.entries[i].wins;
-                        losses_str = json.entries[i].losses;
-                        leaguePoints_str = json.entries[i].leaguePoints;
-                        hotstreak_str = 'empty';
-                        
-                        break;
-                    }
-                }
-                })
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                window.location.href = "error.html";
-                //alert("error getting Summoner data!1");
-            }
-        });
 
 }
 
@@ -308,15 +224,6 @@ function MultiKDA(RECENT_MATCHES) {
     var dataTempArray = [];
     var dataTemp = 0;
 
-    var w =0;
-    var win = document.querySelectorAll("#outcome_1, #outcome_2, #outcome_3, #outcome_4, #outcome_5");
-    var game = document.querySelectorAll("#queue_1, #queue_2, #queue_3, #queue_4, #queue_5");
-    var duration = document.querySelectorAll("#duration_1, #duration_2, #duration_3, #duration_4, #duration_5");
-    var time = document.querySelectorAll("#date_1, #date_2, #date_3, #date_4, #date_5");
-    var x = document.querySelectorAll("#kills_1, #kills_2, #kills_3, #kills_4, #kills_5");
-    var y = document.querySelectorAll("#deaths_1, #deaths_2, #deaths_3, #deaths_4, #deaths_5");
-    var z = document.querySelectorAll("#assists_1, #assists_2, #assists_3, #assists_4, #assists_5");
-
 
     for (m = 0; m < RECENT_MATCHES.length; m++) {
         var participantID = 'empty';
@@ -334,23 +241,6 @@ function MultiKDA(RECENT_MATCHES) {
                         participantID = json.participantIdentities[i].participantId;
                         //console.log(participantID);
                     }
-                    if(m<5 && json.participantIdentities[i].player.accountId == currID)
-                    {
-                        x[m].innerHTML = json.participants[i].stats.kills;
-                        y[m].innerHTML = json.participants[i].stats.deaths;
-                        z[m].innerHTML = json.participants[i].stats.assists;
-                        game[m].innerHTML = json.gameMode + " (NORMAL DRAFT)";
-                        duration[m].innerHTML = Math.floor(json.gameDuration/60) + " min " + json.gameDuration % 60 + " secs";
-                        time[m].innerHTML = timeDifference(Date.now(), json.gameCreation);
-                        if(json.participants[i].stats.win){
-
-                            win[m].innerHTML = "WIN";
-                        }
-                        else 
-                        {
-                            win[m].innerHTML = "LOSS";
-                        }
-                    }    
 
 
                 }
@@ -495,6 +385,7 @@ function multiCSGraph(RECENT_MATCHES) {
     var labelsTemp = [];
     var dataTempArray = [];
     var dataTemp = 0;
+
     for (m = 0; m < RECENT_MATCHES.length; m++) {
         var participantID = 'empty';
         $.ajax({
@@ -504,18 +395,23 @@ function multiCSGraph(RECENT_MATCHES) {
             data: {
             },
             success: function (json) {
+
                 // find participant id
                 for (i = 0; i < json.participantIdentities.length; i++) {
                     if (json.participantIdentities[i].player.accountId == currID) {
                         participantID = json.participantIdentities[i].participantId;
                         //console.log(participantID);
                     }
+
+
                 }
                 for (i = 0; i < json.participants.length; i++) {
                     if (json.participants[i].participantId == participantID) {
                         dataTemp = json.participants[i].stats.totalMinionsKilled;
                         //console.log(dataTemp);
                     }
+
+
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -527,9 +423,13 @@ function multiCSGraph(RECENT_MATCHES) {
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
         });
+
         labelsTemp.push(m + 1);
         dataTempArray.push(dataTemp);
+
+
     }
+
     var chartData = {
         labels: labelsTemp,
         datasets: [
@@ -540,15 +440,18 @@ function multiCSGraph(RECENT_MATCHES) {
             }
         ]
     };
+
     var ctx = document.getElementById("myChart1").getContext("2d");
     var myLine = new Chart(ctx).Line(chartData, {
         showTooltips: false,
         onAnimationComplete: function () {
+
             var ctx = this.chart.ctx;
             ctx.font = this.scale.font;
             ctx.fillStyle = this.scale.textColor
             ctx.textAlign = "center";
             ctx.textBaseline = "bottom";
+
             this.datasets.forEach(function (dataset) {
                 dataset.points.forEach(function (points) {
                     ctx.fillText(points.value, points.x, points.y - 10);
@@ -717,6 +620,7 @@ function matchLookUp(MATCH_NUM) {
         img.src = profileIcon;
         var profileIconImage = document.getElementById("ramin_icon");
         profileIconImage.appendChild(img);  
+
         var img = document.createElement("img");
         img.src = itemIcon1;
         var profileIconImage = document.getElementById("item1");
