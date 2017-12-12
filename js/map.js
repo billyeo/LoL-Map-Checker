@@ -1,4 +1,4 @@
-console.log('Version -0.287');
+console.log('Version -0.288');
 
 var GlobalAccountID;
 var GloalSummonerID;
@@ -635,7 +635,6 @@ function multiMatchLookUp(RECENT_MATCHES) {
 }
 
 
-
 // This function calls display map, and plots a specific matchs kill coords
 function matchLookUp(MATCH_NUM) {
     //var SUMMONER_NAME = "";
@@ -660,6 +659,9 @@ function matchLookUp(MATCH_NUM) {
     var item4 = 'empty';
     var item5 = 'empty';
     var item6 = 'empty';
+    var champIconNum = 'empty';
+    var ChampIcon = 'https://ddragon.leagueoflegends.com/cdn/7.10.1/img/champion/';
+
 
     if (MATCH_NUM !== "") {
 
@@ -689,6 +691,7 @@ function matchLookUp(MATCH_NUM) {
                         itemIcon4 += json.participants[i].stats.item4;
                         itemIcon5 += json.participants[i].stats.item5;
                         itemIcon6 += json.participants[i].stats.item6;
+                        ChampIcon = json.participants[i].championId;
                     }
                 }
             },
@@ -702,6 +705,30 @@ function matchLookUp(MATCH_NUM) {
             ///////////////////////////////////////////////////////////
         });
 
+
+        // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
+        $.ajax({
+            url: 'https://na1.api.riotgames.com/lol/static-data/v3/champions/  -- change to heroku' + champIconNum + '?locale=en_US' ,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+               
+                ChampIcon += json.name;
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //alert("error getting Summoner data!");
+                console.log("error in match lookup :( ");
+            },
+            ///////////////////////////////////////////////////////////
+            async: false // This line is the holy grail of our project/
+            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
+            ///////////////////////////////////////////////////////////
+        });
+
+        ChampIcon += '.png';
         profileIcon += '.png';
         itemIcon1 += '.png';
         itemIcon2 += '.png';
@@ -781,7 +808,6 @@ function matchLookUp(MATCH_NUM) {
     }
     else { }
 }
-
 
 
 
