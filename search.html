@@ -85,7 +85,7 @@
 		<div class="overlay">
 			<div class="champion_info d-flex">
 				<div class="champion_icon d-inline-block champion_border">
-          <img id="summoner_icon" style="display: inline-block; width: 50px; height: auto;">
+          <img id="summoner_icon" style="display: inline-block; width: 50px; height: auto; border: 2px solid white ;">
 				</div>
 				<div class="info-text d-inline-flex flex-column justify-center">
 					<span class="white-text">NA </span>
@@ -98,15 +98,22 @@
 
 <!--CS GRAPHS-->
 <div class="container">
-	<div class="row">
-		<div class="col-sm-4 well">
+  <div class="row white-text" style="text-align:center; font-size: 38px; "> OVERALL ANALYTICS <span style="font-size:30px;">(LAST 20)</span></div>
+	<div class="row"> 
+		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="myChart1" height="300" width="500"></canvas>
+      <div class="row white-text" style="text-align:center; font-size: 25px; "> AVG CS per MATCH</div>
+      <div class="row" style="font-size: 20px; text-align:center; color: #630b17"><span id="avg_cs"></span> CS</div>
 		</div>
-		<div class="col-sm-4 well">
+		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="winlossChart" height="300" width="500"></canvas>
+      <div class="row white-text" style="text-align:center; font-size: 25px; "> WIN PERCENTAGE</div>
+      <div class="row" style="font-size:20px; text-align: center; color: #630b17"><span id="avg_win"></span> % </div>
 		</div>
-		<div class="col-sm-4 well">
+		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="kdaChart" height="300" width="500"></canvas>
+      <div class="row white-text" style="text-align:center; font-size: 25px; "> AVG KDA</div>
+      <div class="row" style="font-size:20px; text-align: center; color: #630b17"><span id="avg_kda"></span> Kills/Deaths/Assists </div>
 		</div>
 	</div>
 </div>
@@ -136,7 +143,7 @@
                 <div class="content text-left">
                   <p class="type color-secondary white-text" >Ranked Solo/Duo</p>
                   <p class="tier"> <span id="tier"></span> <span id="division"></span></p>
-                  <p class="leaguepoints white-text" id="lp"> <span class="white-text"> LP </span></p> 
+                  <p class="leaguepoints white-text"> <span id="lp"></span> LP</p> 
                   <p class="winratio"> <span id="winNum"></span> WINS</p>
                   <p class="winratio" style="color:red"> <span id="lossNum"></span> LOSS</p>
                 </div>
@@ -219,7 +226,7 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane fade active" id="overview">
-                    <div id="myChart_1"></div>
+                    <div id="match_creep_1"></div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane fade" id="maps">
@@ -576,12 +583,27 @@
     	</div>
     </div>
 
-    <div role="tabpanel" class="tab-pane fade" id="ranked">...
+    <div role="tabpanel" class="tab-pane fade" id="ranked">
       <div id="map"></div>
+      <div class="container">
+        <div class="row white-text" style="font-size: 50px;">
+          MORE COMING SOON
+        </div>
+      </div>
     </div>
-    <div role="tabpanel" class="tab-pane fade" id="runes">...
+    <div role="tabpanel" class="tab-pane fade" id="runes">
+    <div class="container">
+        <div class="row white-text" style="font-size: 50px;">
+          MORE COMING SOON
+        </div>
+      </div>
     </div>
-    <div role="tabpanel" class="tab-pane fade" id="champions">...
+    <div role="tabpanel" class="tab-pane fade" id="champions">
+    <div class="container">
+        <div class="row white-text" style="font-size: 50px;">
+          MORE COMING SOON
+        </div>
+      </div>
     </div>
   </div>
 
