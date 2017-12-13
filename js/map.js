@@ -143,7 +143,7 @@ function printStuff(name) {
                 createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { matchLookUp(match.gameId); }, 'Match Details');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
-                //SummonerProfile(GlobalSummonerID);
+                SummonerProfile(GlobalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
@@ -172,11 +172,12 @@ function SummonerProfile(summoner_id){
     var losses_str = 'empty';
     var leaguePoints_str = 'empty';
     var hotstreak_str = 'empty';
+    var source = 'tier-icons/';
 
 
 
 
-      $.ajax({
+    $.ajax({
             url: 'https://nodejslolmc1.herokuapp.com/getLeague?id=' + curSummonerID,
             type: 'GET',
             dataType: 'json',
@@ -185,7 +186,6 @@ function SummonerProfile(summoner_id){
             success: function (json) {
                 console.log(json);
                 // loop through json to find summoner using summoner id
-                
                     
                         tier_str = json[0].tier;
                         rank_str = json[0].rank;
@@ -193,9 +193,6 @@ function SummonerProfile(summoner_id){
                         losses_str = json[0].losses;
                         leaguePoints_str = json[0].leaguePoints;
                         hotstreak_str = 'empty';
-                    
-                
-                
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
@@ -203,11 +200,21 @@ function SummonerProfile(summoner_id){
             },
         async: false
         });
+    document.getElementById('tier').innerHTML = tier_str;
+    document.getElementById('division').innerHTML = rank_str;
+    document.getElementById('lp').innerHTML = leaguePoints_str;
+    document.getElementById('winNum').innerHTML = wins_str;
+    document.getElementById('lossNum').innerHTML = losses_str;
+
+    document.getElementById('summoner-tier-image').src = source + tier_str + '_' + rank_str + '.png';
+
+
+    /*
     console.log(tier_str);
     console.log(rank_str);
     console.log(wins_str);
     console.log(losses_str);
-    console.log(leaguePoints_str);
+    console.log(leaguePoints_str);*/
 
 }
 
@@ -296,13 +303,6 @@ function CreeperScoreThingy(matchnumber) {
         async: false
     });
 }
-
-
-
-
-
-
-
 
 function MultiKDA(RECENT_MATCHES) {
     console.log("Entered MultiKDA");
@@ -665,6 +665,7 @@ function matchLookUp(MATCH_NUM) {
     var itemIcon4 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon5 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon6 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
+    var trinketIcon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var ChampIcon = 'https://ddragon.leagueoflegends.com/cdn/7.10.1/img/champion/';
     var ChampIcon_1 = 'https://ddragon.leagueoflegends.com/cdn/7.24.1/img/champion/';
     var ss1 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/';
@@ -675,6 +676,7 @@ function matchLookUp(MATCH_NUM) {
     var item4 = 'empty';
     var item5 = 'empty';
     var item6 = 'empty';
+    var item0 = 'empty';
     var champIconNum = 'empty';
 
     var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
@@ -701,12 +703,13 @@ function matchLookUp(MATCH_NUM) {
                 {
                     if (json.participants[i].participantId == participantID)
                     {
-                        itemIcon1 += json.participants[i].stats.item1;
-                        itemIcon2 += json.participants[i].stats.item2;
-                        itemIcon3 += json.participants[i].stats.item3;
-                        itemIcon4 += json.participants[i].stats.item4;
-                        itemIcon5 += json.participants[i].stats.item5;
-                        itemIcon6 += json.participants[i].stats.item6;
+                        itemIcon1 += json.participants[i].stats.item0;
+                        itemIcon2 += json.participants[i].stats.item1;
+                        itemIcon3 += json.participants[i].stats.item2;
+                        itemIcon4 += json.participants[i].stats.item3;
+                        itemIcon5 += json.participants[i].stats.item4;
+                        itemIcon6 += json.participants[i].stats.item5;
+                        trinketIcon += json.participants[i].stats.item6;
                         champIconNum = json.participants[i].championId;
                     }
                     //console.log('check here');
@@ -758,6 +761,7 @@ function matchLookUp(MATCH_NUM) {
         itemIcon4 += '.png';
         itemIcon5 += '.png';
         itemIcon6 += '.png';
+        trinketIcon += '.png';
         ChampIcon += '.png';
         ss1 += '.png';
         ss2 += '.png';
@@ -786,6 +790,8 @@ function matchLookUp(MATCH_NUM) {
                 var x5 = 'item_' + w + '_5';
                 var x6 = 'item_' + w + '_6';
 
+                var x7 = 'trinket_' + w;
+
                 var champ_1 = 'champion_image_' + w;
                 //console.log(x1);
                 var sum_of_this = ChampIcon_1 + 'Vayne' + '.png';
@@ -800,6 +806,7 @@ function matchLookUp(MATCH_NUM) {
                 document.getElementById(x4).src  = itemIcon4;
                 document.getElementById(x5).src  = itemIcon5;
                 document.getElementById(x6).src  = itemIcon6;
+                document.getElementById(x7).src = trinketIcon;
                 //document.getElementById('summoner_icon').src = profileIcon;
             }
         }
