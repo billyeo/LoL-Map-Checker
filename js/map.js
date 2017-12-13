@@ -1,4 +1,4 @@
-console.log('Version -0.291');
+console.log('Version -0.292');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -184,11 +184,11 @@ function SummonerProfile(summoner_id){
                 // loop through json to find summoner using summoner id
                  for (i = 0; i < json[0].entries.length; i++) {
                     if (json[0].entries[i].playerOrTeamId == curSummonerID) {
-                        tier_str = json.tier;
-                        rank_str = json.entries[i].rank;
-                        wins_str = json.entries[i].wins;
-                        losses_str = json.entries[i].losses;
-                        leaguePoints_str = json.entries[i].leaguePoints;
+                        tier_str = json[0].tier;
+                        rank_str = json[0].entries[i].rank;
+                        wins_str = json[0].entries[i].wins;
+                        losses_str = json[0].entries[i].losses;
+                        leaguePoints_str = json[0].entries[i].leaguePoints;
                         hotstreak_str = 'empty';
                         
                         break;
