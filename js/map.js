@@ -172,7 +172,7 @@ function SummonerProfile(summoner_id){
     var losses_str = 'empty';
     var leaguePoints_str = 'empty';
     var hotstreak_str = 'empty';
-    var source = 'tier-icons/';
+    var source = '../tier-icons/';
 
 
 
