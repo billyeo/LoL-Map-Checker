@@ -1,6 +1,7 @@
 console.log('Version -0.284');
 
 var GlobalAccountID;
+var GlobalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
@@ -76,6 +77,7 @@ function summonerLookUp(SUMMONER_NAME) {
                 //setting global paramter
                 GlobalAccountID = accountID;
                 acc_ID = GlobalAccountID;
+                GlobalSummonerID = json.id;
                 return acc_ID;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -174,32 +176,32 @@ function SummonerProfile(summoner_id){
 
 
 
-    $.ajax({
+      $.ajax({
             url: 'https://nodejslolmc1.herokuapp.com/getLeague?id=' + curSummonerID,
             type: 'GET',
             dataType: 'json',
             data: {
             },
             success: function (json) {
+                console.log(json);
                 // loop through json to find summoner using summoner id
-                 for (i = 0; i < json[0].entries.length; i++) {
-                    if (json[0].entries[i].playerOrTeamId == curSummonerID) {
+                
+                    
                         tier_str = json[0].tier;
-                        rank_str = json[0].entries[i].rank;
-                        wins_str = json[0].entries[i].wins;
-                        losses_str = json[0].entries[i].losses;
-                        leaguePoints_str = json[0].entries[i].leaguePoints;
+                        rank_str = json[0].rank;
+                        wins_str = json[0].wins;
+                        losses_str = json[0].losses;
+                        leaguePoints_str = json[0].leaguePoints;
                         hotstreak_str = 'empty';
-                        
-                        break;
-                    }
-                }
+                    
+                
                 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
                 //alert("error getting Summoner data!1");
-            }
+            },
+        async: false
         });
     console.log(tier_str);
     console.log(rank_str);
