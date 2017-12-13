@@ -145,6 +145,12 @@ function printStuff(name) {
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
                 SummonerProfile(GlobalSummonerID);
                 MultiKDA(GlobalRecentMatches);
+                
+                /*for(i=0; i< 5; i++){
+                    console.log(GlobalRecentMatches[i]);
+                    matchLookUp(GlobalRecentMatches[i]);
+                    console.log('success');
+                }*/
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
                 var x = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
@@ -174,7 +180,6 @@ function SummonerProfile(summoner_id){
     var losses_str = 'empty';
     var leaguePoints_str = 'empty';
     var hotstreak_str = 'empty';
-    //var source = '../tier-icons/tier-icons/';
     var source = 'https://raw.githubusercontent.com/billyeo/LoL-Map-Checker.github.io/master/tier-icons/tier-icons/';
 
 
@@ -213,23 +218,13 @@ function SummonerProfile(summoner_id){
     var lower_div = rank_str.toLowerCase();
     document.getElementById('summoner-tier-image').src = source + lower_tier + '_' + lower_div + '.png';
 
-
-    /*
-    console.log(tier_str);
-    console.log(rank_str);
-    console.log(wins_str);
-    console.log(losses_str);
-    console.log(leaguePoints_str);*/
-
 }
 
 
 function CreeperScoreThingy(matchnumber) {
     // a random match number to test : 2654536966
-
     var currID = GlobalAccountID;
     var participantID = 'empty';
-
 
     var labelsTemp = [];
     var dataTempArray = [];
@@ -273,7 +268,6 @@ function CreeperScoreThingy(matchnumber) {
                 console.log(data);
                 labelsTemp.push(5);
                 dataTempArray.push(data);
-
 
             }
             catch (e) {
@@ -328,10 +322,7 @@ function CreeperScoreThingy(matchnumber) {
         async: false
     });
 
-
- 
-
-var chartData = {
+    var chartData = {
         labels: labelsTemp,
         datasets: [
             {
@@ -342,7 +333,7 @@ var chartData = {
         ]
     };
 
-     var ctx = document.getElementById("myChart1").getContext("2d");
+     var ctx = document.getElementById("myChart_1").getContext("2d");
     var myLine = new Chart(ctx).Line(chartData, {
         showTooltips: false,
         onAnimationComplete: function () {
@@ -360,7 +351,6 @@ var chartData = {
             })
         }
     });
-    
 
 }
 
@@ -727,7 +717,10 @@ function matchLookUp(MATCH_NUM) {
     var itemIcon6 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var trinketIcon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var ChampIcon = 'https://ddragon.leagueoflegends.com/cdn/7.10.1/img/champion/';
-    var ChampIcon_1 = 'https://ddragon.leagueoflegends.com/cdn/7.24.1/img/champion/';
+    //var ChampIcon_1 = 'https://ddragon.leagueoflegends.com/cdn/7.24.1/img/champion/';
+    var matchBG = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/';
+
+    var errorPNG = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/0.png';
     var ss1 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/';
     var ss2 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/';
     var item1 = 'empty';
@@ -788,24 +781,33 @@ function matchLookUp(MATCH_NUM) {
 
         // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
         $.ajax({
-            url: 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
+            //url: 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
+            url: 'https://nodejslolmc1.herokuapp.com/getChamppic',
             type: 'GET',
             dataType: 'json',
             data: {
             },
             success: function (json) {
+                var images = Object.keys(json.data).map(function (key) {
+                    if(json.data[key].key == champIconNum){
+                            ChampIcon += json.data[key].name;
+                            matchBG += json.data[key].name;
+                            //console.log(ChampIcon);
+                        }
+                });
+                
                 for (i = 0; i < json.data.length; i++) {
                     if (json.data[i].key == champIconNum) {
                         ChampIcon += json.data[i].id;
                     }
-                    //console.log('hey dudue');
+                    console.log('hey dudue');
                     //console.log(ChampIcon);
                 }
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 //alert("error getting Summoner data!");
-                console.log("error in match lookup :( ");
+                console.log("error in match lookup zz :( ");
             },
             ///////////////////////////////////////////////////////////
             async: false // This line is the holy grail of our project/
@@ -823,12 +825,15 @@ function matchLookUp(MATCH_NUM) {
         itemIcon6 += '.png';
         trinketIcon += '.png';
         ChampIcon += '.png';
+        matchBG += '_0.jpg'
         ss1 += '.png';
         ss2 += '.png';
 
-        console.log(profileIcon);
+        //console.log(profileIcon);
+        //console.log(matchBG);
         //document.getElementById('summoner_icon').style.backgroundImage = "url(profileIcon)";
         document.getElementById('summoner_icon').src = profileIcon;
+        document.getElementById('summoner_page_header').style.backgroundImage = 'url('+ matchBG +')';
 
         // !! this is where you change the get element by id to match with new html.
         /*
@@ -849,51 +854,33 @@ function matchLookUp(MATCH_NUM) {
                 var x4 = 'item_' + w + '_4';
                 var x5 = 'item_' + w + '_5';
                 var x6 = 'item_' + w + '_6';
-
                 var x7 = 'trinket_' + w;
 
+                var tableImage = 'match_' + w;
                 var champ_1 = 'champion_image_' + w;
-                //console.log(x1);
-                var sum_of_this = ChampIcon_1 + 'Vayne' + '.png';
-                console.log('heyyy');
-                console.log(sum_of_this);
-                console.log(itemIcon1);
-                document.getElementById(champ_1).src = sum_of_this;
+                //console.log(itemIcon1);
+                //document.getElementById(champ_1).src = sum_of_this;
+                document.getElementById(champ_1).src = ChampIcon;
 
-                document.getElementById(x1).src  = itemIcon1;
-                document.getElementById(x2).src  = itemIcon2;
-                document.getElementById(x3).src  = itemIcon3;
-                document.getElementById(x4).src  = itemIcon4;
-                document.getElementById(x5).src  = itemIcon5;
-                document.getElementById(x6).src  = itemIcon6;
+
+                if(itemIcon1 != errorPNG)
+                {document.getElementById(x1).src  = itemIcon1;}
+                if(itemIcon2 != errorPNG)
+                {document.getElementById(x2).src  = itemIcon2;}
+                if(itemIcon3 != errorPNG)
+                {document.getElementById(x3).src  = itemIcon3;}
+                if(itemIcon4 != errorPNG)
+                {document.getElementById(x4).src  = itemIcon4;}
+                if(itemIcon5 != errorPNG)
+                {document.getElementById(x5).src  = itemIcon5;}
+                if(itemIcon6 != errorPNG)
+                {document.getElementById(x6).src  = itemIcon6;}
+
                 document.getElementById(x7).src = trinketIcon;
+                document.getElementById(tableImage).style.backgroundImage = 'url('+ matchBG +')';
                 //document.getElementById('summoner_icon').src = profileIcon;
             }
         }
-
-        //img.src = itemIcon1;
-        /*
-        var img = document.createElement("img");
-        img.src = itemIcon2;
-        var profileIconImage = document.getElementById("item2");
-        profileIconImage.appendChild(img);
-        var img = document.createElement("img");
-        img.src = itemIcon3;
-        var profileIconImage = document.getElementById("item3");
-        profileIconImage.appendChild(img);
-        var img = document.createElement("img");
-        img.src = itemIcon4;
-        var profileIconImage = document.getElementById("item4");
-        profileIconImage.appendChild(img);
-        var img = document.createElement("img");
-        img.src = itemIcon5;
-        var profileIconImage = document.getElementById("item5");
-        profileIconImage.appendChild(img);
-        var img = document.createElement("img");
-        img.src = itemIcon6;
-        var profileIconImage = document.getElementById("item6");
-        profileIconImage.appendChild(img);
-        */
         console.log(participantID);
         $.ajax({
             url: 'https://nodejslolmc1.herokuapp.com/getTimeline?rmatch=' + MATCH_NUM,
@@ -930,6 +917,7 @@ function matchLookUp(MATCH_NUM) {
             ///////////////////////////////////////////////////////////
         });
         displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM);
+        //CreeperScoreThingy(MATCH_NUM);
     }
     else { }
 }
@@ -967,6 +955,8 @@ function displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM) {
     yScale = d3.scale.linear()
         .domain([domain.min.y, domain.max.y])
         .range([height, 0]);
+
+
     if(MATCH_NUM == 0){
     svg = d3.select("#map").append("svg:svg")
         .attr("width", width)
@@ -974,17 +964,17 @@ function displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM) {
         
     }
     else {
-    for(i=0; i< match_id.length;i++){
+        for(i=0; i< match_id.length;i++){
         
-        if(match_id[i].innerHTML == MATCH_NUM){
-            var w = i + 1;
-            var map = '#map_' + w;
-            svg = d3.select(map).append("svg:svg")
+            if(match_id[i].innerHTML == MATCH_NUM){
+                var w = i + 1;
+                var map = '#map_' + w;
+                svg = d3.select(map).append("svg:svg")
                 .attr("width", width)
                 .attr("height", height);
 
+            }
         }
-    }
     }
 
     svg.append('image')
