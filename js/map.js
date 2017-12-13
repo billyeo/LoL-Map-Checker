@@ -172,7 +172,8 @@ function SummonerProfile(summoner_id){
     var losses_str = 'empty';
     var leaguePoints_str = 'empty';
     var hotstreak_str = 'empty';
-    var source = '../tier-icons/tier-icons/';
+    //var source = '../tier-icons/tier-icons/';
+    var source = 'https://raw.githubusercontent.com/billyeo/LoL-Map-Checker.github.io/master/tier-icons/tier-icons/';
 
 
 
