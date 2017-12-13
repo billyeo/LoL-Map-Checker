@@ -458,18 +458,34 @@ function MultiKDA(RECENT_MATCHES) {
     dataKills /= 20;
     dataDeaths /= 20;
     dataAssists /= 20;
+    
+    // HERE HERE HERE
+    var win_percent = winCount/20;
+    document.getElementById('avg_win').innerHTML = (win_percent);
+    document.getElementById('avg_kda').innerHTML = (dataKills + '/' + dataDeaths + '/' + dataAssists);
+    var sum_minions_killed =0;
+    for(z=0; z< dataTempArray.length;z++){
+        sum_minions_killed += dataTempArray[z];
+    }
+    sum_minions_killed /= 20;
+    document.getElementById('avg_cs').innerHTML = (sum_minions_killed);
 
+    //
 
     var data = [{
         value: winCount,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Win"
+        label: "Win",
+        labelColor: 'white',
+        labelFontSize: '16'
     }, {
         value: lossCount,
         color: "#F7464A",
         highlight: "#FF5A5E",
-        label: "Loss"
+        label: "Loss",
+        labelColor: 'white',
+        labelFontSize: '16'
     }];
 
     var ctx = document.getElementById("winlossChart").getContext("2d");
