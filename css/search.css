@@ -172,6 +172,7 @@ div{
 }
 .match-history .time{
 	width: 120px;
+	margin-left: 45px;
 }
 .match-history .kda{
 	width:120px;
