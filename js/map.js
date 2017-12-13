@@ -206,7 +206,9 @@ function SummonerProfile(summoner_id){
     document.getElementById('winNum').innerHTML = wins_str;
     document.getElementById('lossNum').innerHTML = losses_str;
 
-    document.getElementById('summoner-tier-image').src = source + tier_str + '_' + rank_str + '.png';
+    var lower_tier = tier_str.toLowerCase();
+    var lower_div = rank_str.toLowerCase();
+    document.getElementById('summoner-tier-image').src = source + lower_tier + '_' + lower_div + '.png';
 
 
     /*
