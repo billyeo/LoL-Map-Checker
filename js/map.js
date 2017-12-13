@@ -226,8 +226,15 @@ function SummonerProfile(summoner_id){
 
 function CreeperScoreThingy(matchnumber) {
     // a random match number to test : 2654536966
+
     var currID = GlobalAccountID;
     var participantID = 'empty';
+
+
+    var labelsTemp = [];
+    var dataTempArray = [];
+    var data = 'empty';;
+
     $.ajax({
         url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch=' + matchnumber,
         type: 'GET',
@@ -262,7 +269,11 @@ function CreeperScoreThingy(matchnumber) {
         success: function (json) {
 
             try {
-                console.log(json.frames[5].participantFrames[participantID].minionsKilled);
+                data = json.frames[5].participantFrames[participantID].minionsKilled;
+                console.log(data);
+                labelsTemp.push(5);
+                dataTempArray.push(data);
+
 
             }
             catch (e) {
@@ -272,7 +283,10 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                console.log(json.frames[10].participantFrames[participantID].minionsKilled);
+                data = json.frames[10].participantFrames[participantID].minionsKilled - data;
+                console.log(data);
+                labelsTemp.push(10);
+                dataTempArray.push(data);
 
             }
             catch (e) {
@@ -282,7 +296,10 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                console.log(json.frames[15].participantFrames[participantID].minionsKilled);
+                data = json.frames[15].participantFrames[participantID].minionsKilled - data;
+                console.log(data);
+                labelsTemp.push(15);
+                dataTempArray.push(data);
 
             }
             catch (e) {
@@ -292,7 +309,10 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                console.log(json.frames[20].participantFrames[participantID].minionsKilled);
+                data = json.frames[20].participantFrames[participantID].minionsKilled - data;
+                console.log(data);
+                labelsTemp.push(20);
+                dataTempArray.push(data);
 
             }
             catch (e) {
@@ -307,6 +327,41 @@ function CreeperScoreThingy(matchnumber) {
         },
         async: false
     });
+
+
+ 
+
+var chartData = {
+        labels: labelsTemp,
+        datasets: [
+            {
+                fillColor: "#79D1CF",
+                strokeColor: "#79D1CF",
+                data: dataTempArray
+            }
+        ]
+    };
+
+     var ctx = document.getElementById("myChart1").getContext("2d");
+    var myLine = new Chart(ctx).Line(chartData, {
+        showTooltips: false,
+        onAnimationComplete: function () {
+
+            var ctx = this.chart.ctx;
+            ctx.font = this.scale.font;
+            ctx.fillStyle = this.scale.textColor
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+
+            this.datasets.forEach(function (dataset) {
+                dataset.points.forEach(function (points) {
+                    ctx.fillText(points.value, points.x, points.y - 10);
+                });
+            })
+        }
+    });
+    
+
 }
 
 function MultiKDA(RECENT_MATCHES) {
