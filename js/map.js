@@ -1,9 +1,96 @@
-console.log('Version -0.284');
+console.log('Version -0.287');
 
 var GlobalAccountID;
-var GlobalSummonerID;
+var GloalSummonerID;
 var GlobalRecentMatches = [];
+var LoginStatus=false;
+var loggedInAs;
 // bad idea^ 
+
+function logIn(username,password) {
+
+	$.ajax({
+            url: 'checklogin.php',
+            type: 'GET',
+            data: {userID: username
+            },
+            success: function (data) {
+				if(password==data){
+					LoginStatus=true;
+					loggedInAs=username;
+				alert("Succesfully Logged In");
+				}
+				else
+					alert("Incorrect Username or Password");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Incorrect Username or Password");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+        });
+}
+
+function register(username,email,password,cpassword){
+	if(password==cpassword){
+		alert("wtf"+email+password+cpassword);
+	$.ajax({
+            url: 'testinsert.php',
+            type: 'POST',
+            data: {userID: username, pass: password, email: email
+            },
+            success: function (data) {
+				alert("Registered for LoLMC, Please Log In");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Oops something went wrong! Please try again");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+	});
+	}
+	else
+		alert("Please confirm the correct password");
+}
+
+function logOut() {
+	LoginStatus=false;
+}
+
+function saveMatch(fieldnum){
+	var username=loggedInAs;
+	var match=GlobalRecentMatches[fieldnum];
+	if(LoginStatus==true){
+	$.ajax({
+            url: 'testinsert.php',
+            type: 'POST',
+            data: {userID: username, matchID: match
+            },
+            success: function (data) {
+				if (data==1){
+				alert("Match Saved");
+				}
+				else
+				{
+				alert("You reached your limit of saved games");
+				}
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Oops something went wrong! Please try again");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+	});
+	}
+	else
+		alert("Please Log In to save a match");
+	
+}
+
+
 
 function timeDifference(current, previous) {
     
@@ -71,13 +158,12 @@ function summonerLookUp(SUMMONER_NAME) {
             data: {
             },
             success: function (json) {
-                //getting data from json into local variables
-                summonerID = json.id;
+                 //getting data from json into local variables
+                GloalSummonerID = json.id;
                 var accountID = json.accountId;
                 //setting global paramter
                 GlobalAccountID = accountID;
                 acc_ID = GlobalAccountID;
-                GlobalSummonerID = json.id;
                 return acc_ID;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -140,10 +226,9 @@ function printStuff(name) {
                 //      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
                 //     }
                 // })   
-                createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
-                //createButton(function () { matchLookUp(match.gameId); }, 'Match Details');
+                //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
-                SummonerProfile(GlobalSummonerID);
+                SummonerProfile(GloalSummonerID);
                 MultiKDA(GlobalRecentMatches);
                 //multiCSGraph(GlobalRecentMatches);
                 //billy's holy grail
@@ -151,8 +236,6 @@ function printStuff(name) {
                 var i;
                 for (i = 0; i < x.length; i++) {
                     x[i].innerHTML = GlobalRecentMatches[i];
-                    matchLookUp(GlobalRecentMatches[i]);
-                    console.log('success');
                 }
                 //hehehehehehhe
             },
@@ -166,16 +249,13 @@ function printStuff(name) {
 }
 
 function SummonerProfile(summoner_id){
-    var curSummonerID = GlobalSummonerID;
-    console.log(GlobalSummonerID);
+    var curSummonerID = GloalSummonerID;
     var tier_str = 'empty';
     var rank_str = 'empty';
     var wins_str = 'empty';
     var losses_str = 'empty';
     var leaguePoints_str = 'empty';
     var hotstreak_str = 'empty';
-    //var source = '../tier-icons/tier-icons/';
-    var source = 'https://raw.githubusercontent.com/billyeo/LoL-Map-Checker.github.io/master/tier-icons/tier-icons/';
 
 
 
@@ -187,54 +267,33 @@ function SummonerProfile(summoner_id){
             data: {
             },
             success: function (json) {
-                console.log(json);
                 // loop through json to find summoner using summoner id
-                    
-                        tier_str = json[0].tier;
-                        rank_str = json[0].rank;
-                        wins_str = json[0].wins;
-                        losses_str = json[0].losses;
-                        leaguePoints_str = json[0].leaguePoints;
+                 for (i = 0; i < json.entries.length; i++) {
+                    if (json.entries[i].playerOrTeamId == curSummonerID) {
+                        tier_str = json.tier;
+                        rank_str = json.entries[i].rank;
+                        wins_str = json.entries[i].wins;
+                        losses_str = json.entries[i].losses;
+                        leaguePoints_str = json.entries[i].leaguePoints;
                         hotstreak_str = 'empty';
+                        
+                        break;
+                    }
+                }
+                
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
                 //alert("error getting Summoner data!1");
-            },
-        async: false
+            }
         });
-    document.getElementById('tier').innerHTML = tier_str;
-    document.getElementById('division').innerHTML = rank_str;
-    document.getElementById('lp').innerHTML = leaguePoints_str;
-    document.getElementById('winNum').innerHTML = wins_str;
-    document.getElementById('lossNum').innerHTML = losses_str;
-
-    var lower_tier = tier_str.toLowerCase();
-    var lower_div = rank_str.toLowerCase();
-    document.getElementById('summoner-tier-image').src = source + lower_tier + '_' + lower_div + '.png';
-
-
-    /*
-    console.log(tier_str);
-    console.log(rank_str);
-    console.log(wins_str);
-    console.log(losses_str);
-    console.log(leaguePoints_str);*/
 
 }
 
-
 function CreeperScoreThingy(matchnumber) {
     // a random match number to test : 2654536966
-
     var currID = GlobalAccountID;
     var participantID = 'empty';
-
-
-    var labelsTemp = [];
-    var dataTempArray = [];
-    var data = 'empty';;
-
     $.ajax({
         url: 'https://nodejslolmc1.herokuapp.com/recentSearch?rmatch=' + matchnumber,
         type: 'GET',
@@ -269,11 +328,7 @@ function CreeperScoreThingy(matchnumber) {
         success: function (json) {
 
             try {
-                data = json.frames[5].participantFrames[participantID].minionsKilled;
-                console.log(data);
-                labelsTemp.push(5);
-                dataTempArray.push(data);
-
+                console.log(json.frames[5].participantFrames[participantID].minionsKilled);
 
             }
             catch (e) {
@@ -283,10 +338,7 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                data = json.frames[10].participantFrames[participantID].minionsKilled - data;
-                console.log(data);
-                labelsTemp.push(10);
-                dataTempArray.push(data);
+                console.log(json.frames[10].participantFrames[participantID].minionsKilled);
 
             }
             catch (e) {
@@ -296,10 +348,7 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                data = json.frames[15].participantFrames[participantID].minionsKilled - data;
-                console.log(data);
-                labelsTemp.push(15);
-                dataTempArray.push(data);
+                console.log(json.frames[15].participantFrames[participantID].minionsKilled);
 
             }
             catch (e) {
@@ -309,10 +358,7 @@ function CreeperScoreThingy(matchnumber) {
                 }
             }
             try {
-                data = json.frames[20].participantFrames[participantID].minionsKilled - data;
-                console.log(data);
-                labelsTemp.push(20);
-                dataTempArray.push(data);
+                console.log(json.frames[20].participantFrames[participantID].minionsKilled);
 
             }
             catch (e) {
@@ -327,42 +373,14 @@ function CreeperScoreThingy(matchnumber) {
         },
         async: false
     });
-
-
- 
-
-var chartData = {
-        labels: labelsTemp,
-        datasets: [
-            {
-                fillColor: "#79D1CF",
-                strokeColor: "#79D1CF",
-                data: dataTempArray
-            }
-        ]
-    };
-
-     var ctx = document.getElementById("myChart1").getContext("2d");
-    var myLine = new Chart(ctx).Line(chartData, {
-        showTooltips: false,
-        onAnimationComplete: function () {
-
-            var ctx = this.chart.ctx;
-            ctx.font = this.scale.font;
-            ctx.fillStyle = this.scale.textColor
-            ctx.textAlign = "center";
-            ctx.textBaseline = "bottom";
-
-            this.datasets.forEach(function (dataset) {
-                dataset.points.forEach(function (points) {
-                    ctx.fillText(points.value, points.x, points.y - 10);
-                });
-            })
-        }
-    });
-    
-
 }
+
+
+
+
+
+
+
 
 function MultiKDA(RECENT_MATCHES) {
     console.log("Entered MultiKDA");
@@ -385,8 +403,6 @@ function MultiKDA(RECENT_MATCHES) {
     var x = document.querySelectorAll("#kills_1, #kills_2, #kills_3, #kills_4, #kills_5");
     var y = document.querySelectorAll("#deaths_1, #deaths_2, #deaths_3, #deaths_4, #deaths_5");
     var z = document.querySelectorAll("#assists_1, #assists_2, #assists_3, #assists_4, #assists_5");
-
-    var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
 
 
     for (m = 0; m < RECENT_MATCHES.length; m++) {
@@ -413,7 +429,7 @@ function MultiKDA(RECENT_MATCHES) {
                         game[m].innerHTML = json.gameMode + " (NORMAL DRAFT)";
                         duration[m].innerHTML = Math.floor(json.gameDuration/60) + " min " + json.gameDuration % 60 + " secs";
                         time[m].innerHTML = timeDifference(Date.now(), json.gameCreation);
-                        if(json.participants[i].stats.win && m <5){
+                        if(json.participants[i].stats.win){
 
                             win[m].innerHTML = "WIN";
                         }
@@ -702,7 +718,7 @@ function multiMatchLookUp(RECENT_MATCHES) {
         });
 
     }
-    displaymap(multiKill_coordsRED, multiKill_coordsBLUE, 0);
+    displaymap(multiKill_coordsRED, multiKill_coordsBLUE);
 }
 
 
@@ -718,29 +734,20 @@ function matchLookUp(MATCH_NUM) {
     var participantID = 'empty';
     var currID = GlobalAccountID;
 
-    var profileIcon = 'http://ddragon.leagueoflegends.com/cdn/7.24.1/img/profileicon/';
+    var profileIcon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/';
     var itemIcon1 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon2= 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon3 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon4 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon5 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
     var itemIcon6 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
-    var trinketIcon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/';
-    var ChampIcon = 'https://ddragon.leagueoflegends.com/cdn/7.10.1/img/champion/';
-    var ChampIcon_1 = 'https://ddragon.leagueoflegends.com/cdn/7.24.1/img/champion/';
-    var ss1 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/';
-    var ss2 = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/';
     var item1 = 'empty';
     var item2 = 'empty';
     var item3 = 'empty';
     var item4 = 'empty';
     var item5 = 'empty';
     var item6 = 'empty';
-    var item0 = 'empty';
-    var champIconNum = 'empty';
 
-    var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
-    var championItem = document.querySelectorAll("#item_1, #item_2, #item_3, #item_4, #item_5");
     if (MATCH_NUM !== "") {
 
         $.ajax({
@@ -763,17 +770,13 @@ function matchLookUp(MATCH_NUM) {
                 {
                     if (json.participants[i].participantId == participantID)
                     {
-                        itemIcon1 += json.participants[i].stats.item0;
-                        itemIcon2 += json.participants[i].stats.item1;
-                        itemIcon3 += json.participants[i].stats.item2;
-                        itemIcon4 += json.participants[i].stats.item3;
-                        itemIcon5 += json.participants[i].stats.item4;
-                        itemIcon6 += json.participants[i].stats.item5;
-                        trinketIcon += json.participants[i].stats.item6;
-                        champIconNum = json.participants[i].championId;
+                        itemIcon1 += json.participants[i].stats.item1;
+                        itemIcon2 += json.participants[i].stats.item2;
+                        itemIcon3 += json.participants[i].stats.item3;
+                        itemIcon4 += json.participants[i].stats.item4;
+                        itemIcon5 += json.participants[i].stats.item5;
+                        itemIcon6 += json.participants[i].stats.item6;
                     }
-                    //console.log('check here');
-                    console.log(champIconNum);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -785,34 +788,6 @@ function matchLookUp(MATCH_NUM) {
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
         });
-
-        // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
-        $.ajax({
-            url: 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-            },
-            success: function (json) {
-                for (i = 0; i < json.data.length; i++) {
-                    if (json.data[i].key == champIconNum) {
-                        ChampIcon += json.data[i].id;
-                    }
-                    //console.log('hey dudue');
-                    //console.log(ChampIcon);
-                }
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                //alert("error getting Summoner data!");
-                console.log("error in match lookup :( ");
-            },
-            ///////////////////////////////////////////////////////////
-            async: false // This line is the holy grail of our project/
-            //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
-            ///////////////////////////////////////////////////////////
-        });
-
 
         profileIcon += '.png';
         itemIcon1 += '.png';
@@ -821,14 +796,7 @@ function matchLookUp(MATCH_NUM) {
         itemIcon4 += '.png';
         itemIcon5 += '.png';
         itemIcon6 += '.png';
-        trinketIcon += '.png';
-        ChampIcon += '.png';
-        ss1 += '.png';
-        ss2 += '.png';
-
         console.log(profileIcon);
-        //document.getElementById('summoner_icon').style.backgroundImage = "url(profileIcon)";
-        document.getElementById('summoner_icon').src = profileIcon;
 
         // !! this is where you change the get element by id to match with new html.
         /*
@@ -837,42 +805,9 @@ function matchLookUp(MATCH_NUM) {
         var profileIconImage = document.getElementById("ramin_icon");
         profileIconImage.appendChild(img);  
         var img = document.createElement("img");
-        */
-
-        for(i=0; i< match_id.length;i++){
-            console.log(match_id[i].innerHTML);
-            if(match_id[i].innerHTML == MATCH_NUM){
-                var w = i+1;
-                var x1 = 'item_' + w + '_1';
-                var x2 = 'item_' + w + '_2';
-                var x3 = 'item_' + w + '_3';
-                var x4 = 'item_' + w + '_4';
-                var x5 = 'item_' + w + '_5';
-                var x6 = 'item_' + w + '_6';
-
-                var x7 = 'trinket_' + w;
-
-                var champ_1 = 'champion_image_' + w;
-                //console.log(x1);
-                var sum_of_this = ChampIcon_1 + 'Vayne' + '.png';
-                console.log('heyyy');
-                console.log(sum_of_this);
-                console.log(itemIcon1);
-                document.getElementById(champ_1).src = sum_of_this;
-
-                document.getElementById(x1).src  = itemIcon1;
-                document.getElementById(x2).src  = itemIcon2;
-                document.getElementById(x3).src  = itemIcon3;
-                document.getElementById(x4).src  = itemIcon4;
-                document.getElementById(x5).src  = itemIcon5;
-                document.getElementById(x6).src  = itemIcon6;
-                document.getElementById(x7).src = trinketIcon;
-                //document.getElementById('summoner_icon').src = profileIcon;
-            }
-        }
-
-        //img.src = itemIcon1;
-        /*
+        img.src = itemIcon1;
+        var profileIconImage = document.getElementById("item1");
+        profileIconImage.appendChild(img);
         var img = document.createElement("img");
         img.src = itemIcon2;
         var profileIconImage = document.getElementById("item2");
@@ -929,7 +864,7 @@ function matchLookUp(MATCH_NUM) {
             //and still a SUPER DUPER BAD idea ¯\_(ツ)_/¯ //////////////
             ///////////////////////////////////////////////////////////
         });
-        displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM);
+        displaymap(Kill_coordsRED, Kill_coordsBLUE);
     }
     else { }
 }
@@ -937,10 +872,10 @@ function matchLookUp(MATCH_NUM) {
 
 
 
-function displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM) {
+function displaymap(Kill_coordsRED, Kill_coordsBLUE) {
     //console.log(Kill_coords);
 
-    var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
+
     var cordsRED = Kill_coordsRED,
         cordsBLUE = Kill_coordsBLUE,
 
@@ -967,25 +902,10 @@ function displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM) {
     yScale = d3.scale.linear()
         .domain([domain.min.y, domain.max.y])
         .range([height, 0]);
-    if(MATCH_NUM == 0){
+
     svg = d3.select("#map").append("svg:svg")
         .attr("width", width)
         .attr("height", height);
-        
-    }
-    else {
-    for(i=0; i< match_id.length;i++){
-        
-        if(match_id[i].innerHTML == MATCH_NUM){
-            var w = i + 1;
-            var map = '#map_' + w;
-            svg = d3.select(map).append("svg:svg")
-                .attr("width", width)
-                .attr("height", height);
-
-        }
-    }
-    }
 
     svg.append('image')
         .attr('xlink:href', bg)
