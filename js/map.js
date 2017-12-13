@@ -191,7 +191,7 @@ function SummonerProfile(summoner_id){
                         leaguePoints_str = json[0].entries[i].leaguePoints;
                         hotstreak_str = 'empty';
                         
-                        break;
+                        //break;
                     }
                 }
                 
