@@ -76,7 +76,6 @@
 		<div class="alert alert-warning alert-dismissible" role="alert">
   			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   			<strong>Important!</strong> Due to Riot API changes, some data may take some time to load.
-  			<span id="user_Name"> </span>
 		</div>
 	<div class="summonerIcon"></div>
 	<div class="summonerName"></div>
@@ -87,12 +86,13 @@
 	<div id="summoner_page_header"> 
 		<div class="overlay">
 			<div class="champion_info d-flex">
-				<div class="champion_icon d-inline-block champion_border" style="background-image: url('Images/icon3.jpg')">
+				<div class="champion_icon d-inline-block champion_border">
+          <img id="summoner_icon" style="display: inline-block; width: 50px; height: auto;">
 				</div>
 				<div class="info-text d-inline-flex flex-column justify-center">
 					<span class="text-muted">NA </span>
-					<span class="title"> Hortato</span>
-					<span class="lvlTitle"> LEVEL 33 </span>
+					<span class="title" id="user_Name" style="color:white"></span>
+					<span class="lvlTitle" id="summoner-title-level"> LEVEL 33 </span>
 				</div>
 			</div>
 		</div>
@@ -150,7 +150,10 @@
             <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
               <tbody>
                 <tr>
-                  <td class="align-middle text-left p-2"> 
+                  <td class="align-middle text-left p-2">
+                    <img class="champion-circle" id="champion_image_1" style="display:inline-block; width: 50px; height: 50px">
+                  </td>
+                  <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
                       <p class="value" id= "outcome_1" ></p>
                       <p class="text" id="queue_1" ></p>
@@ -170,25 +173,23 @@
                   <td class=" d-md-table-cell align-middle height-100">
                     <div class="d-flex icons">
                       <div class="spells">
-                        <img class="spell tip" data-spell-name="Heal" data-spell-cooldown="240 seconds" data-spell-description="heals hp"
-                        data-spell-image="http://static.lolskill.net/img/spells/32/7.png" src="http://static.lolskill.net/img/spells/32/7.png" alt="" data-original-title="" title="">
-                        <img class="spell tip" data-spell-name="Flash" data-spell-cooldown="300 seconds" data-spell-description="teleports distance"
-                        data-spell-image="http://static.lolskill.net/img/spells/32/4.png" src="http://static.lolskill.net/img/spells/32/4.png" alt="" data-original-title="" title="">
+                        <img class="spell tip" id="ss_spell1" >
+                        <img class="spell tip" id="ss_spell2" >
                       </div>
-                      <div class="items d-flex1 flex-column">
+                      <div class="items d-flex flex-column">
                         <div class="d-flex">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" id="item_1_1" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_1_2" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_1_3" style="display:inline-block; width: 50px; height: 50px">
                         </div>
                         <div class="d-flex align-items-center">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-                          <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
+                          <img class="item tip" id="item_1_4" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_1_5" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_1_6" style="display:inline-block; width: 50px; height: 50px">
                         </div>
                       </div>
-                      <div class="trinket d-flex1 align-items-centers">
-                        <img class="item tip" data-item-name="Farsight Alteration" data-item-cost="0" data-item-image="//static.lolskill.net/img/items/64/3363.png" src="http://static.lolskill.net/img/items/32/3363.png" alt="" data-original-title="" title="">
+                      <div class="trinket d-flex align-items-centers">
+                        <img class="item tip">
                       </div>
                     </div>
                   </td>
@@ -207,28 +208,30 @@
                 </tr>
               </tbody>
             </table>
+            <!--EXPAND BUTTON DETAILS-->
             <div class="collapse" id="collapseTarget">
-              <div class="container">
-                  <div class="card card-block">
-                    SOME RANDOM DATA HERE
+              <div class="container tabs-wrapper">
+                  <!--NAVS-->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation"><a href="#maps" aria-controls="maps" role="tab" data-toggle="tab">Maps</a></li>
+                  </ul>
+                  <!--END OF NAVS-->
+                  <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active" id="overview">
                   </div>
+                  <!-- end of match overview-->
+                  <div role="tabpanel" class="tab-pane fade" id="maps">
+                    <div class="container">
+                      <div id="map_1"></div>
+                    </div>
+                  </div>
+                </div>
+                  <!--END OF TABS-->
               </div>
             </div>
-            <!--
-            <div class="match-sm d-flex d-md-none align-items-center justify-content-start w-100" id="d-md-none1">
-              <img class="spell tip" data-spell-name="Heal" data-spell-cooldown="240 seconds" data-spell-description="heals hp"
-              data-spell-image="http://static.lolskill.net/img/spells/32/7.png" src="http://static.lolskill.net/img/spells/32/7.png" alt="" data-original-title="" title="">
-              <img class="spell tip" data-spell-name="Flash" data-spell-cooldown="300 seconds" data-spell-description="teleports distance"
-              data-spell-image="http://static.lolskill.net/img/spells/32/4.png" src="http://static.lolskill.net/img/spells/32/4.png" alt="" data-original-title="" title="">
-              <div class="ml-auto"></div> 
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-              <img class="item tip" data-item-name="Phantom Dancer" data-item-cost="2600" data-item-image="http://static.lolskill.net/img/items/64/3046.png" src="http://static.lolskill.net/img/items/32/3046.png" alt="" data-original-title="" title="">
-            </div>
-            -->
+            <!--END OF DROP DOWN EXPAND BTN-->
             <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
               <tbody>
                 <tr>
@@ -249,6 +252,29 @@
                       <p class="text">KDA</p>
                     </div>
                   </td>
+                  <td class=" d-md-table-cell align-middle height-100">
+                    <div class="d-flex icons">
+                      <div class="spells">
+                        <img class="spell tip" id="ss_spell1" >
+                        <img class="spell tip" id="ss_spell2" >
+                      </div>
+                      <div class="items d-flex flex-column">
+                        <div class="d-flex">
+                          <img class="item tip" id="item_2_1" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_2_2" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_2_3" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="item tip" id="item_2_4" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_2_5" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_2_6" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                      </div>
+                      <div class="trinket d-flex align-items-centers">
+                        <img class="item tip">
+                      </div>
+                    </div>
+                  </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
                       <p class="value" id= "duration_2"></p>
@@ -257,10 +283,36 @@
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
                       <button class="btn btn-primary"> Save Match</button>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTarget_2" aria-expanded="false" aria-controls="collapseTarget_2"> Expand</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <!--EXPAND BUTTON DETAILS-->
+            <div class="collapse" id="collapseTarget_2">
+              <div class="container tabs-wrapper">
+                  <!--NAVS-->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#overview_2" aria-controls="overview_2" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation"><a href="#maps_2" aria-controls="maps_2" role="tab" data-toggle="tab">Maps</a></li>
+                  </ul>
+                  <!--END OF NAVS-->
+                  <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active" id="overview_2">
+                  </div>
+                  <!-- end of match overview-->
+                  <div role="tabpanel" class="tab-pane fade" id="maps_2">
+                    <div class="container">
+                      <div id="map_2"></div>
+                    </div>
+                  </div>
+                </div>
+                  <!--END OF TABS-->
+              </div>
+            </div>
+            <!--END OF DROP DOWN EXPAND BTN-->
             <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
               <tbody>
                 <tr>
@@ -281,6 +333,29 @@
                       <p class="text">KDA</p>
                     </div>
                   </td>
+                  <td class=" d-md-table-cell align-middle height-100">
+                    <div class="d-flex icons">
+                      <div class="spells">
+                        <img class="spell tip" id="ss_spell1" >
+                        <img class="spell tip" id="ss_spell2" >
+                      </div>
+                      <div class="items d-flex flex-column">
+                        <div class="d-flex">
+                          <img class="item tip" id="item_3_1" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_3_2" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_3_3" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="item tip" id="item_3_4" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_3_5" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_3_6" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                      </div>
+                      <div class="trinket d-flex align-items-centers">
+                        <img class="item tip">
+                      </div>
+                    </div>
+                  </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
                       <p class="value" id= "duration_3"></p>
@@ -289,10 +364,36 @@
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
                       <button class="btn btn-primary"> Save Match</button>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTarget_3" aria-expanded="false" aria-controls="collapseTarget_3"> Expand</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <!--EXPAND BUTTON DETAILS-->
+            <div class="collapse" id="collapseTarget_3">
+              <div class="container tabs-wrapper">
+                  <!--NAVS-->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#overview_3" aria-controls="overview_3" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation"><a href="#maps_3" aria-controls="maps_3" role="tab" data-toggle="tab">Maps</a></li>
+                  </ul>
+                  <!--END OF NAVS-->
+                  <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active" id="overview_3">
+                  </div>
+                  <!-- end of match overview-->
+                  <div role="tabpanel" class="tab-pane fade" id="maps_3">
+                    <div class="container">
+                      <div id="map_3"></div>
+                    </div>
+                  </div>
+                </div>
+                  <!--END OF TABS-->
+              </div>
+            </div>
+            <!--END OF DROP DOWN EXPAND BTN-->
             <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
               <tbody>
                 <tr>
@@ -313,6 +414,29 @@
                       <p class="text">KDA</p>
                     </div>
                   </td>
+                  <td class=" d-md-table-cell align-middle height-100">
+                    <div class="d-flex icons">
+                      <div class="spells">
+                        <img class="spell tip" id="ss_spell1" >
+                        <img class="spell tip" id="ss_spell2" >
+                      </div>
+                      <div class="items d-flex flex-column">
+                        <div class="d-flex">
+                          <img class="item tip" id="item_4_1" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_4_2" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_4_3" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="item tip" id="item_4_4" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_4_5" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_4_6" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                      </div>
+                      <div class="trinket d-flex align-items-centers">
+                        <img class="item tip">
+                      </div>
+                    </div>
+                  </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
                       <p class="value" id= "duration_4"></p>
@@ -321,10 +445,36 @@
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
                       <button class="btn btn-primary"> Save Match</button>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTarget_4" aria-expanded="false" aria-controls="collapseTarget_4"> Expand</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <!--EXPAND BUTTON DETAILS-->
+            <div class="collapse" id="collapseTarget_4">
+              <div class="container tabs-wrapper">
+                  <!--NAVS-->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#overview_4" aria-controls="overview_4" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation"><a href="#maps_4" aria-controls="maps_4" role="tab" data-toggle="tab">Maps</a></li>
+                  </ul>
+                  <!--END OF NAVS-->
+                  <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active" id="overview_4">
+                  </div>
+                  <!-- end of match overview-->
+                  <div role="tabpanel" class="tab-pane fade" id="maps_4">
+                    <div class="container">
+                      <div id="map_4"></div>
+                    </div>
+                  </div>
+                </div>
+                  <!--END OF TABS-->
+              </div>
+            </div>
+            <!--END OF DROP DOWN EXPAND BTN-->
             <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
               <tbody>
                 <tr>
@@ -345,6 +495,29 @@
                       <p class="text">KDA</p>
                     </div>
                   </td>
+                  <td class=" d-md-table-cell align-middle height-100">
+                    <div class="d-flex icons">
+                      <div class="spells">
+                        <img class="spell tip" id="ss_spell1" >
+                        <img class="spell tip" id="ss_spell2" >
+                      </div>
+                      <div class="items d-flex flex-column">
+                        <div class="d-flex">
+                          <img class="item tip" id="item_5_1" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_5_2" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_5_3" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <img class="item tip" id="item_5_4" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_5_5" style="display:inline-block; width: 50px; height: 50px">
+                          <img class="item tip" id="item_5_6" style="display:inline-block; width: 50px; height: 50px">
+                        </div>
+                      </div>
+                      <div class="trinket d-flex align-items-centers">
+                        <img class="item tip">
+                      </div>
+                    </div>
+                  </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
                       <p class="value" id= "duration_5"></p>
@@ -353,10 +526,36 @@
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
                       <button class="btn btn-primary"> Save Match</button>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTarget_5" aria-expanded="false" aria-controls="collapseTarget_5"> Expand</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <!--EXPAND BUTTON DETAILS-->
+            <div class="collapse" id="collapseTarget_5">
+              <div class="container tabs-wrapper">
+                  <!--NAVS-->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#overview_5" aria-controls="overview_5" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation"><a href="#maps_5" aria-controls="maps_5" role="tab" data-toggle="tab">Maps</a></li>
+                  </ul>
+                  <!--END OF NAVS-->
+                  <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active" id="overview_5">
+                  </div>
+                  <!-- end of match overview-->
+                  <div role="tabpanel" class="tab-pane fade" id="maps_5">
+                    <div class="container">
+                      <div id="map_5"></div>
+                    </div>
+                  </div>
+                </div>
+                  <!--END OF TABS-->
+              </div>
+            </div>
+            <!--END OF DROP DOWN EXPAND BTN-->
     			</div>
           <!--MATCH HISTORY TABLE ENDS-->
     		</div>
@@ -364,6 +563,7 @@
     </div>
 
     <div role="tabpanel" class="tab-pane fade" id="ranked">...
+      <div id="map"></div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="runes">...
     </div>
@@ -416,7 +616,7 @@
  <script src="js/index.js"> </script>
  <script src="js/search.js"> </script>
  <script src="js/tools.js">  </script>
- <script src="js/map.js"> </script>
+ <script src="js/map1.js"> </script>
   		<!--<script type="text/javascript"> 
   			queryize(window.location.href)['search'];
   		</script> -->
