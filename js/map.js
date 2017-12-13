@@ -714,7 +714,7 @@ function matchLookUp(MATCH_NUM) {
 
         // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
         $.ajax({
-            url: 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
+            url: 'https://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json',
             type: 'GET',
             dataType: 'json',
             data: {
