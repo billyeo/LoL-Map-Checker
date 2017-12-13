@@ -151,6 +151,8 @@ function printStuff(name) {
                 var i;
                 for (i = 0; i < x.length; i++) {
                     x[i].innerHTML = GlobalRecentMatches[i];
+                    matchLookUp(GlobalRecentMatches[i]);
+                    console.log('success');
                 }
                 //hehehehehehhe
             },
