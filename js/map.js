@@ -708,7 +708,7 @@ function matchLookUp(MATCH_NUM) {
 
         // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
         $.ajax({
-            url: 'https://na1.api.riotgames.com/lol/static-data/v3/champions/  -- change to heroku' + champIconNum + '?locale=en_US' ,
+            url: 'https://nodejslolmc1.herokuapp.com/getChamp?champID=' + champIconNum,
             type: 'GET',
             dataType: 'json',
             data: {
