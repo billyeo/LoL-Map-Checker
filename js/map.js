@@ -182,8 +182,8 @@ function SummonerProfile(summoner_id){
             },
             success: function (json) {
                 // loop through json to find summoner using summoner id
-                 for (i = 0; i < json.entries.length; i++) {
-                    if (json.entries[i].playerOrTeamId == curSummonerID) {
+                 for (i = 0; i < json[0].entries.length; i++) {
+                    if (json[0].entries[i].playerOrTeamId == curSummonerID) {
                         tier_str = json.tier;
                         rank_str = json.entries[i].rank;
                         wins_str = json.entries[i].wins;
@@ -191,7 +191,7 @@ function SummonerProfile(summoner_id){
                         leaguePoints_str = json.entries[i].leaguePoints;
                         hotstreak_str = 'empty';
                         
-                        //break;
+                        break;
                     }
                 }
                 
