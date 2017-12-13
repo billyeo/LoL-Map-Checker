@@ -200,6 +200,11 @@ function SummonerProfile(summoner_id){
                 //alert("error getting Summoner data!1");
             }
         });
+    console.log(tier_str);
+    console.log(rank_str);
+    console.log(wins_str);
+    console.log(losses_str);
+    console.log(leaguePoints_str);
 
 }
 
@@ -737,6 +742,7 @@ function matchLookUp(MATCH_NUM) {
         itemIcon5 += '.png';
         itemIcon6 += '.png';
         console.log(profileIcon);
+        console.log(ChampIcon);
 
         // !! this is where you change the get element by id to match with new html.
         /*
