@@ -1,7 +1,7 @@
 console.log('Version -0.288');
 
 var GlobalAccountID;
-var GloalSummonerID;
+var GlobalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
@@ -72,7 +72,7 @@ function summonerLookUp(SUMMONER_NAME) {
             },
             success: function (json) {
                  //getting data from json into local variables
-                GloalSummonerID = json.id;
+                GlobalSummonerID = json.id;
                 var accountID = json.accountId;
                 //setting global paramter
                 GlobalAccountID = accountID;
@@ -162,7 +162,8 @@ function printStuff(name) {
 }
 
 function SummonerProfile(summoner_id){
-    var curSummonerID = GloalSummonerID;
+    var curSummonerID = GlobalSummonerID;
+    console.log(GlobalSummonerID);
     var tier_str = 'empty';
     var rank_str = 'empty';
     var wins_str = 'empty';
@@ -696,7 +697,7 @@ function matchLookUp(MATCH_NUM) {
                         itemIcon4 += json.participants[i].stats.item4;
                         itemIcon5 += json.participants[i].stats.item5;
                         itemIcon6 += json.participants[i].stats.item6;
-                        ChampIcon = json.participants[i].championId;
+                        champIconNum = json.participants[i].championId;
                     }
                 }
             },
@@ -713,14 +714,17 @@ function matchLookUp(MATCH_NUM) {
 
         // example html https://na1.api.riotgames.com/lol/static-data/v3/champions/117?locale=en_US
         $.ajax({
-            url: 'https://nodejslolmc1.herokuapp.com/getChamp?champID=' + champIconNum,
+            url: 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json'
             type: 'GET',
             dataType: 'json',
             data: {
             },
             success: function (json) {
-               
-                ChampIcon += json.name;
+                for (i = 0; i < json.data.length; i++) {
+                    if (json.data[i].key == champIconNum) {
+                        ChampIcon += json.data[i].id;
+                    }
+                }
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
