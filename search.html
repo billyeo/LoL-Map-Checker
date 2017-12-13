@@ -15,32 +15,13 @@
 <body >
 
 <script>
-/*
-		window.addEventListener('load', 
-  		function() { 
-    		//alert('hello!');
-    		var x = processUser();
-    		console.log(x);
-    		printStuff(x);
-  		}, false);*//*
-      function runME() { 
-        //alert('hello!');
-        var x = processUser();
-        console.log(x);
-        printStuff(x);
-      }
-      window.onload = function() {
-        runME();
-      };*/
-          document.addEventListener('DOMContentLoaded', function() { 
+
+  document.addEventListener('DOMContentLoaded', function() { 
         //alert('hello!');
         var x = processUser();
         console.log(x);
         printStuff(x);
       }, false);
-
-
-    
 </script>
 
 <!--Navbar tab-->
@@ -107,9 +88,9 @@
           <img id="summoner_icon" style="display: inline-block; width: 50px; height: auto;">
 				</div>
 				<div class="info-text d-inline-flex flex-column justify-center">
-					<span class="text-muted">NA </span>
+					<span class="white-text">NA </span>
 					<span class="title" id="user_Name" style="color:white"></span>
-					<span class="lvlTitle" id="summoner-title-level"> LEVEL 33 </span>
+					<span class="lvlTitle white-text" id="summoner-title-level"> LEVEL 33 </span>
 				</div>
 			</div>
 		</div>
@@ -153,11 +134,11 @@
               </div>
               <div class="d-flex align-items-center>">
                 <div class="content text-left">
-                  <p class="type color-secondary">Ranked Solo/Duo</p>
+                  <p class="type color-secondary white-text" >Ranked Solo/Duo</p>
                   <p class="tier"> <span id="tier"></span> <span id="division"></span></p>
-                  <p class="leaguepoints" id="lp"> LP</p>
+                  <p class="leaguepoints white-text" id="lp"> <span class="white-text"> LP </span></p> 
                   <p class="winratio"> <span id="winNum"></span> WINS</p>
-                  <p class="winratio"> <span id="lossNum"></span> LOSS</p>
+                  <p class="winratio" style="color:red"> <span id="lossNum"></span> LOSS</p>
                 </div>
               </div>
             </div>
@@ -165,7 +146,7 @@
           <!--RANK ICONS END-->
           <!--MATCH HISTORY TABLES-->
     			<div class= "col-12 col-lg-8 match-history">
-            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+            <table class="match align-middle p-5 w-100" id="match_1" style="background-size: cover; opacity: .80;">
               <tbody>
                 <tr>
                   <td class="align-middle text-left p-2">
@@ -173,19 +154,19 @@
                   </td>
                   <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
-                      <p class="value" id= "outcome_1" ></p>
-                      <p class="text" id="queue_1" ></p>
-                      <p id="table_match_id_1"> <p>
+                      <p class="value white-text" id= "outcome_1" ></p>
+                      <p class="text white-text" id="queue_1" ></p>
+                      <p class="white-text" id="table_match_id_1"> <p>
                     </div>
                   </td>
                   <td class="align-middle">
                     <div class="kda tip text-center">
                       <p class="value">
-                        <span id="kills_1"></span>
-                        <span id="deaths_1"></span>
-                        <span id="assists_1"></span>
+                        <span class="white-text" id="kills_1"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="deaths_1"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="assists_1"></span>
                       </p>
-                      <p class="text">KDA</p>
+                      <p class="text white-text">KDA</p>
                     </div>
                   </td>
                   <td class=" d-md-table-cell align-middle height-100">
@@ -212,9 +193,9 @@
                     </div>
                   </td>
                   <td class="align-middle "> 
-                    <div class="time tip text-center">
-                      <p class="value" id= "duration_1"></p>
-                      <p class="text" id= "date_1"></p>
+                    <div class="time tip text-center white-text">
+                      <p class="value white-text" id= "duration_1"></p>
+                      <p class="text white-text" id= "date_1"></p>
                     </div>
                   </td>
                   <td class="align-middle text-right p-2"> 
@@ -238,6 +219,7 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane fade active" id="overview">
+                    <div id="myChart_1"></div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane fade" id="maps">
@@ -250,7 +232,7 @@
               </div>
             </div>
             <!--END OF DROP DOWN EXPAND BTN-->
-            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+            <table class="match align-middle p-5 w-100" id = "match_2" style="background-size: cover; opacity: .80;" >
               <tbody>
                 <tr>
                   <td class="align-middle text-left p-2">
@@ -258,19 +240,19 @@
                   </td>
                   <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
-                      <p class="value" id= "outcome_1" ></p>
-                      <p class="text" id="queue_1" ></p>
-                      <p id="table_match_id_1"> <p>
+                      <p class="value white-text" id= "outcome_2" ></p>
+                      <p class="text white-text" id="queue_2" ></p>
+                      <p class="white-text" id="table_match_id_2"> <p>
                     </div>
                   </td>
                   <td class="align-middle">
                     <div class="kda tip text-center">
-                      <p class="value">
-                        <span id="kills_2"></span>
-                        <span id="deaths_2"></span>
-                        <span id="assists_2"></span>
+                      <p class="value white-text">
+                        <span class="white-text" id="kills_2"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="deaths_2"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="assists_2"></span> 
                       </p>
-                      <p class="text">KDA</p>
+                      <p class="text white-text">KDA</p>
                     </div>
                   </td>
                   <td class=" d-md-table-cell align-middle height-100">
@@ -298,8 +280,8 @@
                   </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
-                      <p class="value" id= "duration_2"></p>
-                      <p class="text" id= "date_2"></p>
+                      <p class="value white-text" id= "duration_2"></p>
+                      <p class="text white-text" id= "date_2"></p>
                   </td>
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
@@ -334,7 +316,7 @@
               </div>
             </div>
             <!--END OF DROP DOWN EXPAND BTN-->
-            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+            <table class="match align-middle p-5 w-100" id="match_3" style="background-size: cover; opacity: .80;">
               <tbody>
                 <tr>
                   <td class="align-middle text-left p-2">
@@ -342,19 +324,19 @@
                   </td>
                   <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
-                      <p class="value" id= "outcome_1" ></p>
-                      <p class="text" id="queue_1" ></p>
-                      <p id="table_match_id_1"> <p>
+                      <p class="value white-text" id= "outcome_3" ></p>
+                      <p class="text white-text" id="queue_3" ></p>
+                      <p class="white-text" id="table_match_id_3"> <p>
                     </div>
                   </td>
                   <td class="align-middle">
                     <div class="kda tip text-center">
                       <p class="value">
-                        <span id="kills_3"></span>
-                        <span id="deaths_3"></span>
-                        <span id="assists_3"></span>
+                        <span class="white-text" id="kills_3"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="deaths_3"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="assists_3"></span> 
                       </p>
-                      <p class="text">KDA</p>
+                      <p class="text white-text">KDA</p>
                     </div>
                   </td>
                   <td class=" d-md-table-cell align-middle height-100">
@@ -382,8 +364,8 @@
                   </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
-                      <p class="value" id= "duration_3"></p>
-                      <p class="text" id= "date_3"></p>
+                      <p class="value white-text" id= "duration_3"></p>
+                      <p class="text white-text" id= "date_3"></p>
                   </td>
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
@@ -418,7 +400,7 @@
               </div>
             </div>
             <!--END OF DROP DOWN EXPAND BTN-->
-            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+            <table class="match align-middle p-5 w-100" id="match_4" style="background-size: cover; opacity: .80;">
               <tbody>
                 <tr>
                   <td class="align-middle text-left p-2">
@@ -426,19 +408,19 @@
                   </td>
                   <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
-                      <p class="value" id= "outcome_1" ></p>
-                      <p class="text" id="queue_1" ></p>
-                      <p id="table_match_id_1"> <p>
+                      <p class="value white-text" id= "outcome_4" ></p>
+                      <p class="text white-text" id="queue_4" ></p>
+                      <p class="white-text" id="table_match_id_4"> <p>
                     </div>
                   </td>
                   <td class="align-middle">
                     <div class="kda tip text-center">
                       <p class="value">
-                        <span id="kills_4"></span>
-                        <span id="deaths_4"></span>
-                        <span id="assists_4"></span>
+                        <span class="white-text" id="kills_4"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="deaths_4"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="assists_4"></span> 
                       </p>
-                      <p class="text">KDA</p>
+                      <p class="text white-text">KDA</p>
                     </div>
                   </td>
                   <td class=" d-md-table-cell align-middle height-100">
@@ -466,8 +448,8 @@
                   </td>
                   <td class="align-middle "> 
                     <div class="time tip text-center">
-                      <p class="value" id= "duration_4"></p>
-                      <p class="text" id= "date_4"></p>
+                      <p class="value white-text" id= "duration_4"></p>
+                      <p class="text white-text" id= "date_4"></p>
                   </td>
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
@@ -502,7 +484,7 @@
               </div>
             </div>
             <!--END OF DROP DOWN EXPAND BTN-->
-            <table class="match align-middle p-5 w-100" style="background-image: url(css/Images/white.jpg);">
+            <table class="match align-middle p-5 w-100" id="match_5" style="background-size: cover; opacity: .80;">
               <tbody>
                 <tr>
                   <td class="align-middle text-left p-2">
@@ -510,19 +492,20 @@
                   </td>
                   <td class="align-middle"> 
                     <div class="short-info" style="width: 150px;">
-                      <p class="value" id= "outcome_1" ></p>
-                      <p class="text" id="queue_1" ></p>
-                      <p id="table_match_id_1"> <p>
+                      <p class="value white-text" id= "outcome_5" ></p>
+                      <p class="text white-text" id="queue_5" ></p>
+                      
+                      <p class="white-text" id="table_match_id_5" > <p>
                     </div>
                   </td>
                   <td class="align-middle">
                     <div class="kda tip text-center">
                       <p class="value">
-                        <span id="kills_5"></span>
-                        <span id="deaths_5"></span>
-                        <span id="assists_5"></span>
+                        <span class="white-text" id="kills_5"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="deaths_5"></span> <span class="white-text"> / <span>
+                        <span class="white-text" id="assists_5"></span>
                       </p>
-                      <p class="text">KDA</p>
+                      <p class="text white-text">KDA</p>
                     </div>
                   </td>
                   <td class=" d-md-table-cell align-middle height-100">
@@ -543,15 +526,16 @@
                           <img class="item tip" id="item_5_6" style="display:inline-block; width: 50px; height: 50px">
                         </div>
                       </div>
-                      <div class="trinket d-flex align-items-centers">
+                      <div class="d-flex align-items-centers">
                         <img class="item tip" id="trinket_5" style="display:inline-block; width: 50px; height: 50px">
                       </div>
                     </div>
                   </td>
-                  <td class="align-middle "> 
+                  <td class="align-middle text-right p-2"> 
                     <div class="time tip text-center">
-                      <p class="value" id= "duration_5"></p>
-                      <p class="text" id= "date_5"></p>
+                      <p class="value white-text" id= "duration_5"></p>
+                      <p class="text white-text" id= "date_5"></p>
+                    </div>
                   </td>
                   <td class="align-middle text-right p-2"> 
                     <div class="save text-right">
@@ -647,6 +631,7 @@
  <script src="js/search.js"> </script>
  <script src="js/tools.js">  </script>
  <script src="js/map.js"> </script>
+
   		<!--<script type="text/javascript"> 
   			queryize(window.location.href)['search'];
   		</script> -->
