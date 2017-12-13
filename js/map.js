@@ -1,4 +1,4 @@
-console.log('Version -0.290');
+console.log('Version -0.291');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -191,7 +191,7 @@ function SummonerProfile(summoner_id){
                         leaguePoints_str = json.entries[i].leaguePoints;
                         hotstreak_str = 'empty';
                         
-                        break;
+                        //break;
                     }
                 }
                 
