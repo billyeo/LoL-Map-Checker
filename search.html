@@ -103,17 +103,17 @@
 		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="myChart1" height="300" width="500"></canvas>
       <div class="row white-text" style="text-align:center; font-size: 25px; "> AVG CS per MATCH</div>
-      <div class="row" style="font-size: 20px; text-align:center; color: #630b17"><span id="avg_cs"></span> CS</div>
+      <div class="row" style="font-size: 20px; text-align:center; color: #a5091f"><span id="avg_cs"></span> CS</div>
 		</div>
 		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="winlossChart" height="300" width="500"></canvas>
       <div class="row white-text" style="text-align:center; font-size: 25px; "> WIN PERCENTAGE</div>
-      <div class="row" style="font-size:20px; text-align: center; color: #630b17"><span id="avg_win"></span> % </div>
+      <div class="row" style="font-size:20px; text-align: center; color: #a5091f"><span id="avg_win"></span> % </div>
 		</div>
 		<div class="col-sm-4 well" style="background-color: rgba(0,0,0,.5); border-style:none;">
 			<canvas class="chart_1" id="kdaChart" height="300" width="500"></canvas>
-      <div class="row white-text" style="text-align:center; font-size: 25px; "> AVG KDA</div>
-      <div class="row" style="font-size:20px; text-align: center; color: #630b17"><span id="avg_kda"></span> Kills/Deaths/Assists </div>
+      <div class="row white-text" style="text-align:center; font-size: 25px; "> AVG PERFORMANCE</div>
+      <div class="row" style="font-size:20px; text-align: center; color: #a5091f"><span id="avg_kda"></span> k/d/a </div>
 		</div>
 	</div>
 </div>
@@ -226,7 +226,9 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane fade active" id="overview">
-                    <div id="match_creep_1"></div>
+                    <div class="container">
+                      <canvas class="chart_1" id="match_creep_1" height="300" width="500"></canvas>
+                    </div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane fade" id="maps">
@@ -311,6 +313,9 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="overview_2">
+                    <div class="container">
+                      <canvas class="chart_1" id="match_creep_2" height="300" width="500"></canvas>
+                    </div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane" id="maps_2">
@@ -395,6 +400,9 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="overview_3">
+                    <div class="container">
+                      <canvas class="chart_1" id="match_creep_3" height="300" width="500"></canvas>
+                    </div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane" id="maps_3">
@@ -479,6 +487,9 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="overview_4">
+                    <div class="container">
+                      <canvas class="chart_1" id="match_creep_4" height="300" width="500"></canvas>
+                    </div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane" id="maps_4">
@@ -565,6 +576,9 @@
                   <!-- Tab panes -->
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="overview_5">
+                    <div class="container">
+                      <canvas class="chart_1" id="match_creep_5" height="300" width="500"></canvas>
+                    </div>
                   </div>
                   <!-- end of match overview-->
                   <div role="tabpanel" class="tab-pane" id="maps_5">
