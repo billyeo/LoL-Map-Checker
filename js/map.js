@@ -1,4 +1,4 @@
-console.log('Version -0.285');
+console.log('Version -0.286');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -441,7 +441,7 @@ function CreeperScoreThingy(matchnumber, match_tab) {
     //var match_name = 'match_creep_' + w;
     var match_name = 'match_creep_' + match_tab;
     //console.log(match_name);
-    var ctx = document.getElementById('match_name').getContext("2d");
+    var ctx = document.getElementById(match_name).getContext("2d");
     //console.log("creepee");
     var myLine = new Chart(ctx).Line(chartData, {
         showTooltips: false,
