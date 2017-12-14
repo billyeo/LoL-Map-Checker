@@ -226,11 +226,13 @@ function printStuff(name) {
                 //      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
                 //     }
                 // })   
-                createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
+                //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { matchLookUp(match.gameId); }, 'Match Details');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
                 SummonerProfile(GlobalSummonerID);
                 MultiKDA(GlobalRecentMatches);
+		MultiKDA(GlobalRecentMatches);
+                createButton(function () { printCreepMaps(GlobalRecentMatches); }, 'Print All Creeps');
                 
                 /*for(i=0; i< 5; i++){
                     console.log(GlobalRecentMatches[i]);
@@ -307,8 +309,17 @@ function SummonerProfile(summoner_id){
 
 }
 
+function printCreepMaps(){
+    //console.log("harro");
+    var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
+    for(x =0; x< match_id.length; x++){
+        CreeperScoreThingy(match_id[x].innerHTML, x+1);
+        //console.log("me printinggg");
+    }
+    //console.log("popp");
+}
 
-function CreeperScoreThingy(matchnumber) {
+function CreeperScoreThingy(matchnumber, match_tab) {
     // a random match number to test : 2654536966
     var currID = GlobalAccountID;
     var participantID = 'empty';
@@ -428,10 +439,10 @@ function CreeperScoreThingy(matchnumber) {
     //    if(match_id[z].innerHTML == matchnumber){
     //var w = z+1;
     //var match_name = 'match_creep_' + w;
-    //var match_name = 'match_creep_' + match_tab;
+    var match_name = 'match_creep_' + match_tab;
     //console.log(match_name);
-    var ctx = document.getElementById('match_creep_1').getContext("2d");
-    console.log("creepee");
+    var ctx = document.getElementById('match_name').getContext("2d");
+    //console.log("creepee");
     var myLine = new Chart(ctx).Line(chartData, {
         showTooltips: false,
         onAnimationComplete: function () {
