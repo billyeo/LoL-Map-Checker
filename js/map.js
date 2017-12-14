@@ -5,6 +5,91 @@ var GlobalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
+function logIn(username,password) {
+
+	$.ajax({
+            url: 'checklogin.php',
+            type: 'GET',
+            data: {userID: username
+            },
+            success: function (data) {
+				if(password==data){
+					localStorage.LoginStatus=true;
+					localStorage.loggedInAs=username;
+				alert("Succesfully Logged In");
+				}
+				else
+					alert("Incorrect Username or Password");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Incorrect Username or Password");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+        });
+}
+
+function register(username,email,password,cpassword){
+	if(password==cpassword){
+	$.ajax({
+            url: 'testinsert.php',
+            type: 'POST',
+            data: {userID: username, pass: password, email: email
+            },
+            success: function (data) {
+				alert("Registered for LoLMC, Please Log In");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Oops something went wrong! Please try again");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+	});
+	}
+	else
+		alert("Please confirm the correct password");
+}
+
+function logOut() {
+	localStorage.LoginStatus=false;
+}
+
+function saveMatch(fieldnum){
+	username=localStorage.loggedInAs;
+	alert(localStorage.LoginStatus);
+	var match=GlobalRecentMatches[fieldnum];
+	alert(username+match);
+	if(localStorage.LoginStatus){
+		alert("AJAX CALL HERE");
+	$.ajax({
+            url: 'savegame.php',
+            type: 'POST',
+            data: {userID: username, matchID: match
+            },
+            success: function (data) {
+				if (data==1){
+				alert("Match Saved");
+				}
+				else
+				{
+				alert("You reached your limit of saved games");
+				}
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //window.location.href = "error.html";
+                alert("Oops something went wrong! Please try again");
+            },
+            async: false
+            // SUPER DUPER BAD idea but ¯\_(ツ)_/¯
+	});
+	}
+	else
+		alert("Please Log In to save a match");
+	
+}
+
 function timeDifference(current, previous) {
     
     var msPerMinute = 60 * 1000;
