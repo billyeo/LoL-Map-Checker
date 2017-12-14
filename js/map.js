@@ -1,4 +1,4 @@
-console.log('Version -0.284');
+console.log('Version -0.285');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -231,7 +231,7 @@ function printStuff(name) {
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
                 SummonerProfile(GlobalSummonerID);
                 MultiKDA(GlobalRecentMatches);
-		MultiKDA(GlobalRecentMatches);
+		multiMatchLookUp(GlobalRecentMatches);
                 createButton(function () { printCreepMaps(GlobalRecentMatches); }, 'Print All Creeps');
                 
                 /*for(i=0; i< 5; i++){
@@ -573,7 +573,7 @@ function MultiKDA(RECENT_MATCHES) {
     dataAssists /= 20;
 
     // HERE HERE HERE again
-    var win_percent = winCount/20*100;
+    var win_percent = parseInt(winCount/20*100);
     //
     var kda_rate = (dataKills + dataAssists) / dataDeaths;
     kda_rate = Math.round(100*kda_rate)/100;
