@@ -561,7 +561,7 @@ function MultiKDA(RECENT_MATCHES) {
     dataAssists /= 20;
 
     // HERE HERE HERE again
-    var win_percent = winCount/20;
+    var win_percent = winCount/20*100;
     //
     var kda_rate = (dataKills + dataAssists) / dataDeaths;
     kda_rate = Math.round(100*kda_rate)/100;
