@@ -226,12 +226,12 @@ function printStuff(name) {
                 //      list.append($('<li>').text(`Match${i+1}:`).append($('<a>').attr('href', match.gameId).text(`${match.gameId}`)));
                 //     }
                 // })   
-                //createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
+                createButton(function () { multiMatchLookUp(GlobalRecentMatches); }, 'Multi-Map');
                 //createButton(function () { matchLookUp(match.gameId); }, 'Match Details');
                 //createButton(function () { multiCSGraph(GlobalRecentMatches); }, 'Multi-CS-Graph');
                 SummonerProfile(GlobalSummonerID);
                 MultiKDA(GlobalRecentMatches);
-		multiMatchLookUp(GlobalRecentMatches);
+		//multiMatchLookUp(GlobalRecentMatches);
                 createButton(function () { printCreepMaps(GlobalRecentMatches); }, 'Print All Creeps');
                 
                 /*for(i=0; i< 5; i++){
