@@ -158,6 +158,7 @@ function printStuff(name) {
                 for (i = 0; i < x.length; i++) {
                     x[i].innerHTML = GlobalRecentMatches[i];
                     matchLookUp(GlobalRecentMatches[i]);
+                    //CreeperScoreThingy(GlobalRecentMatches[i]);
                     console.log('success');
                 }
                 //hehehehehehhe
@@ -333,7 +334,18 @@ function CreeperScoreThingy(matchnumber) {
         ]
     };
 
-     var ctx = document.getElementById("myChart_1").getContext("2d");
+    
+    
+    //var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
+    
+    //for(z= 0 ; z< match_id.length;z++){
+    //    if(match_id[z].innerHTML == matchnumber){
+    //var w = z+1;
+    //var match_name = 'match_creep_' + w;
+    //var match_name = 'match_creep_' + match_tab;
+    //console.log(match_name);
+    var ctx = document.getElementById('match_creep_1').getContext("2d");
+    console.log("creepee");
     var myLine = new Chart(ctx).Line(chartData, {
         showTooltips: false,
         onAnimationComplete: function () {
@@ -350,7 +362,11 @@ function CreeperScoreThingy(matchnumber) {
                 });
             })
         }
-    });
+        });
+        //}
+   
+    //} 
+
 
 }
 
@@ -458,18 +474,22 @@ function MultiKDA(RECENT_MATCHES) {
     dataKills /= 20;
     dataDeaths /= 20;
     dataAssists /= 20;
-    
-    // HERE HERE HERE
+
+    // HERE HERE HERE again
     var win_percent = winCount/20;
+    //
+    var kda_rate = (dataKills + dataAssists) / dataDeaths;
+    kda_rate = Math.round(100*kda_rate)/100;
     document.getElementById('avg_win').innerHTML = (win_percent);
-    document.getElementById('avg_kda').innerHTML = (dataKills + '/' + dataDeaths + '/' + dataAssists);
+    document.getElementById('avg_kda').innerHTML = (kda_rate +  ':' + '1');
+    //
     var sum_minions_killed =0;
     for(z=0; z< dataTempArray.length;z++){
         sum_minions_killed += dataTempArray[z];
     }
     sum_minions_killed /= 20;
     document.getElementById('avg_cs').innerHTML = (sum_minions_killed);
-
+    //CreeperScoreThingy(2667756393);
     //
 
     var data = [{
@@ -861,7 +881,7 @@ function matchLookUp(MATCH_NUM) {
         */
 
         for(i=0; i< match_id.length;i++){
-            console.log(match_id[i].innerHTML);
+            //console.log(match_id[i].innerHTML);
             if(match_id[i].innerHTML == MATCH_NUM){
                 var w = i+1;
                 var x1 = 'item_' + w + '_1';
