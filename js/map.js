@@ -58,11 +58,8 @@ function logOut() {
 
 function saveMatch(fieldnum){
 	username=localStorage.loggedInAs;
-	alert(localStorage.LoginStatus);
 	var match=GlobalRecentMatches[fieldnum];
-	alert(username+match);
 	if(localStorage.LoginStatus){
-		alert("AJAX CALL HERE");
 	$.ajax({
             url: 'savegame.php',
             type: 'POST',
