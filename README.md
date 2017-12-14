@@ -7,4 +7,4 @@ Dean Garofalo
 
 Sample site at : https://billyeo.github.io/LoL-Map-Checker.github.io/.
 
-https://leaguemapchecker.herokuapp.com/search.html?search=doubleyip
+https://leaguemapchecker.herokuapp.com
