@@ -163,7 +163,7 @@ function summonerLookUp(SUMMONER_NAME) {
                 acc_ID = GlobalAccountID;
                 GlobalSummonerID = json.id;
                 summonerLevel = json.summonerLevel;
-		document.getElementById('sumLevel').innerHTML=summonerLevel;
+		document.getElementById('sumLevel').innerHTML='Level '+summonerLevel;
                 return acc_ID;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
