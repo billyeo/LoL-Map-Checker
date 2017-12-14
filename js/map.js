@@ -1056,8 +1056,8 @@ function displaymap(Kill_coordsRED, Kill_coordsBLUE, MATCH_NUM) {
     //console.log(Kill_coords);
 
     var match_id = document.querySelectorAll("p#table_match_id_1, p#table_match_id_2, p#table_match_id_3, p#table_match_id_4, p#table_match_id_5");
-    var cordsRED = Kill_coordsRED,
-        cordsBLUE = Kill_coordsBLUE,
+    var cordsRED = Kill_coordsBLUE,
+        cordsBLUE = Kill_coordsRED,
 
         // Domain for the current Summoner's Rift on the match history website's mini-map
 
