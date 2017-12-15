@@ -7,4 +7,6 @@ Dean Garofalo
 
 Sample site at : https://billyeo.github.io/LoL-Map-Checker.github.io/.
 
-https://leaguemapchecker.herokuapp.com
+Heroku hosted version https://leaguemapchecker.herokuapp.com
+
+Node JS Server https://github.com/doubleyip/apicallforlolmc
