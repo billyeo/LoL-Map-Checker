@@ -5,7 +5,7 @@ var GlobalSummonerID;
 var GlobalRecentMatches = [];
 // bad idea^ 
 
-function logIn(username,password) {
+function logIn(username,password) {		//function to login
 
 	$.ajax({
             url: 'checklogin.php',
@@ -30,7 +30,7 @@ function logIn(username,password) {
         });
 }
 
-function register(username,email,password,cpassword){
+function register(username,email,password,cpassword){		//register to register account
 	if(password==cpassword){
 	$.ajax({
             url: 'testinsert.php',
@@ -52,12 +52,12 @@ function register(username,email,password,cpassword){
 		alert("Please confirm the correct password");
 }
 
-function logOut() {
+function logOut() {				//logs out by settle loginstatus to false
 	localStorage.LoginStatus=false;
 }
 
-function saveMatch(fieldnum){
-	username=localStorage.loggedInAs;
+function saveMatch(fieldnum){			//save mach
+	username=localStorage.loggedInAs;	//checks if loggedin variable is true, doesn't save if not
 	var match=GlobalRecentMatches[fieldnum];
 	if(localStorage.LoginStatus){
 	$.ajax({
