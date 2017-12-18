@@ -8,7 +8,7 @@ var GlobalRecentMatches = [];
 function logIn(username,password) {		//function to login
 
 	$.ajax({
-            url: 'checklogin.php',
+            url: 'scripts/checklogin.php',
             type: 'GET',
             data: {userID: username
             },
@@ -33,7 +33,7 @@ function logIn(username,password) {		//function to login
 function register(username,email,password,cpassword){		//register to register account
 	if(password==cpassword){
 	$.ajax({
-            url: 'testinsert.php',
+            url: 'scripts/testinsert.php',
             type: 'POST',
             data: {userID: username, pass: password, email: email
             },
@@ -61,7 +61,7 @@ function saveMatch(fieldnum){			//save mach
 	var match=GlobalRecentMatches[fieldnum];
 	if(localStorage.LoginStatus){
 	$.ajax({
-            url: 'savegame.php',
+            url: 'scripts/savegame.php',
             type: 'POST',
             data: {userID: username, matchID: match
             },
