@@ -1,4 +1,4 @@
-console.log('Version -0.288');
+console.log('Version -0.289');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -283,13 +283,24 @@ function SummonerProfile(summoner_id){
             success: function (json) {
                 console.log(json);
                 // loop through json to find summoner using summoner id
-                    
+                    if(json[1].queueType == 'RANKED_SOLO_5x5'){
                         tier_str = json[1].tier;
                         rank_str = json[1].rank;
                         wins_str = json[1].wins;
                         losses_str = json[1].losses;
                         leaguePoints_str = json[1].leaguePoints;
                         hotstreak_str = 'empty';
+		    }
+		    else{
+			tier_str = json[0].tier;
+                        rank_str = json[0].rank;
+                        wins_str = json[0].wins;
+                        losses_str = json[0].losses;
+                        leaguePoints_str = json[0].leaguePoints;
+                        hotstreak_str = 'empty';
+		    }
+		    
+		    
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 window.location.href = "error.html";
