@@ -25,3 +25,6 @@ Press expand on a match, or multiple matches, then you need to press the button 
 
 To run multi-map button. Click the button and wait several seconds for the api calls to register.
 Then select the MultiMap tab next to Summary (above the match history).
+
+There is a sample output folder with snapshots called 'Example output'.
+It contains images of the main page, as well as multiple graphs that are displayed when you enter a summoner name.
