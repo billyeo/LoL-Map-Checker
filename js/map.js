@@ -1,4 +1,4 @@
-console.log('Version -0.289');
+console.log('Version -0.290');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -283,7 +283,7 @@ function SummonerProfile(summoner_id){
             success: function (json) {
                 console.log(json);
                 // loop through json to find summoner using summoner id
-                    if(json[1].queueType == 'RANKED_SOLO_5x5'){
+                    if(json.length > 1 && json[1].queueType == 'RANKED_SOLO_5x5'){
                         tier_str = json[1].tier;
                         rank_str = json[1].rank;
                         wins_str = json[1].wins;
