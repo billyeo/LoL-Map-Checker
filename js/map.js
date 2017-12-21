@@ -1,4 +1,4 @@
-console.log('Version -0.286');
+console.log('Version -0.287');
 
 var GlobalAccountID;
 var GlobalSummonerID;
@@ -284,8 +284,8 @@ function SummonerProfile(summoner_id){
                 console.log(json);
                 // loop through json to find summoner using summoner id
                     
-                        tier_str = json[0].tier;
-                        rank_str = json[0].rank;
+                        tier_str = json[1].tier;
+                        rank_str = json[1].rank;
                         wins_str = json[0].wins;
                         losses_str = json[0].losses;
                         leaguePoints_str = json[0].leaguePoints;
