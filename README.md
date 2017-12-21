@@ -18,6 +18,8 @@ Some summoner names to test with: c9 sneaky, mohobomo, doubleyip, hortato
 Wait about 10 seconds for the api calls to register and data to load.
 You will get visual displays of match history and analytical graphs.
 
+For the heat map for single games, press Expand on a game then select the Maps tab.
+
 For additonal graphs, like the creeper score button at the bottom to run you need to.
 Press expand on a match, or multiple matches, then you need to press the button 'Print all Creeps'
 
