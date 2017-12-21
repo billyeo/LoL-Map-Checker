@@ -286,9 +286,9 @@ function SummonerProfile(summoner_id){
                     
                         tier_str = json[1].tier;
                         rank_str = json[1].rank;
-                        wins_str = json[0].wins;
-                        losses_str = json[0].losses;
-                        leaguePoints_str = json[0].leaguePoints;
+                        wins_str = json[1].wins;
+                        losses_str = json[1].losses;
+                        leaguePoints_str = json[1].leaguePoints;
                         hotstreak_str = 'empty';
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
